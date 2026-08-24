@@ -112,17 +112,22 @@
       font-size:11px;
     }
 
-    .header-mark{
-      width:38px;
-      height:38px;
-      border:2px solid var(--primary);
-      border-radius:50%;
+    .header-logo-wrap{
+      width:44px;
+      height:44px;
       display:flex;
       justify-content:center;
       align-items:center;
-      color:var(--primary-deep);
-      font-weight:700;
       flex-shrink:0;
+    }
+
+    .header-logo{
+      display:block;
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
+      object-fit:contain;
     }
 
     /* =========================
@@ -872,7 +877,7 @@
 
     .special-links-row{
       display:grid;
-      grid-template-columns:1fr 1.35fr;
+      grid-template-columns:1fr 1fr;
       gap:8px;
       margin:0 0 9px;
     }
@@ -908,16 +913,11 @@
       transition:.16s ease;
     }
 
-    .philosophy-link-inner{
+    .philosophy-link-inner,
+    .principles-link-inner{
       border:2px solid var(--primary-dark);
       background:linear-gradient(135deg,#dff4f1 0%,#cfeee9 100%);
       box-shadow:0 5px 16px rgba(69,181,170,.18);
-    }
-
-    .principles-link-inner{
-      border:1px dashed #cfd7d6;
-      background:#f7f9f9;
-      opacity:.82;
     }
 
     .philosophy-link-label,
@@ -929,12 +929,9 @@
       letter-spacing:.16em;
     }
 
-    .philosophy-link-label{
-      color:var(--primary-deep);
-    }
-
+    .philosophy-link-label,
     .principles-link-label{
-      color:var(--text-light);
+      color:var(--primary-deep);
     }
 
     .philosophy-link-title,
@@ -944,14 +941,6 @@
       font-size:14px;
       font-weight:700;
       line-height:1.45;
-    }
-
-    .philosophy-link-title{
-      font-size:15px;
-    }
-
-    .principles-link-title{
-      font-size:12px;
     }
 
     .philosophy-link-arrow{
@@ -1131,8 +1120,8 @@
 
       </div>
 
-      <div class="header-mark">
-        N
+      <div class="header-logo-wrap">
+        <img class="header-logo" src="nozomi-logo.jpg" alt="のぞみ整形外科グループ ロゴ">
       </div>
 
     </div>
