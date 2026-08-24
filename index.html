@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: philosophy-layout-v4-20260821 -->
+<!-- BUILD: common-ui-update-v5-20260824 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -821,6 +821,33 @@
       margin-top:24px;
     }
 
+
+    .pitch-link-wrap{
+      display:none;
+      margin-top:12px;
+      text-align:center;
+    }
+
+    .pitch-link-wrap.visible{
+      display:block;
+    }
+
+    .pitch-link{
+      display:inline-block;
+      color:var(--primary-deep);
+      font-size:13px;
+      font-weight:700;
+      text-decoration:none;
+      border-bottom:1px solid rgba(50,143,135,.35);
+      padding:3px 1px;
+    }
+
+    .pitch-link:hover,
+    .pitch-link:focus-visible{
+      border-bottom-color:var(--primary-deep);
+      outline:none;
+    }
+
     /* =========================
        CTA + PHILOSOPHY BUTTON
     ========================= */
@@ -843,50 +870,88 @@
       カードではなく「特別な入口」として見せる。
     */
 
-    .philosophy-link{
-      width:100%;
+    .special-links-row{
+      display:grid;
+      grid-template-columns:1fr 1.35fr;
+      gap:8px;
       margin:0 0 9px;
+    }
+
+    .philosophy-link,
+    .principles-link{
+      width:100%;
+      margin:0;
       padding:0;
       border:none;
       background:transparent;
+    }
+
+    .philosophy-link{
       cursor:pointer;
     }
 
-    .philosophy-link-inner{
+    .principles-link{
+      cursor:default;
+    }
+
+    .philosophy-link-inner,
+    .principles-link-inner{
       position:relative;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
-      min-height:58px;
-      padding:12px 17px;
-      border:1px solid rgba(69,181,170,.38);
+      gap:12px;
+      min-height:64px;
+      padding:12px 15px;
       border-radius:14px;
-      background:
-        linear-gradient(
-          135deg,
-          #f4fbfa 0%,
-          #e7f6f3 100%
-        );
       text-align:left;
       transition:.16s ease;
     }
 
-    .philosophy-link-label{
-      display:block;
-      margin-bottom:1px;
-      color:var(--primary-deep);
-      font-size:9px;
-      font-weight:700;
-      letter-spacing:.18em;
+    .philosophy-link-inner{
+      border:2px solid var(--primary-dark);
+      background:linear-gradient(135deg,#dff4f1 0%,#cfeee9 100%);
+      box-shadow:0 5px 16px rgba(69,181,170,.18);
     }
 
-    .philosophy-link-title{
+    .principles-link-inner{
+      border:1px dashed #cfd7d6;
+      background:#f7f9f9;
+      opacity:.82;
+    }
+
+    .philosophy-link-label,
+    .principles-link-label{
+      display:block;
+      margin-bottom:1px;
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.16em;
+    }
+
+    .philosophy-link-label{
+      color:var(--primary-deep);
+    }
+
+    .principles-link-label{
+      color:var(--text-light);
+    }
+
+    .philosophy-link-title,
+    .principles-link-title{
       display:block;
       color:var(--text-dark);
       font-size:14px;
       font-weight:700;
       line-height:1.45;
+    }
+
+    .philosophy-link-title{
+      font-size:15px;
+    }
+
+    .principles-link-title{
+      font-size:12px;
     }
 
     .philosophy-link-arrow{
@@ -1406,6 +1471,17 @@
           onclick="showScreen('themes')"
         ></button>
 
+        <div id="pitch-link-wrap" class="pitch-link-wrap">
+          <a
+            class="pitch-link"
+            href="https://www.nozomi-clinic.jp/recruit/archives/6782"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            採用ピッチ資料本編はこちら ↗
+          </a>
+        </div>
+
       </div>
 
     </section>
@@ -1479,35 +1555,56 @@
 
 <div class="cta">
 
-  <!-- PHILOSOPHY -->
+  <!-- PRINCIPLES + PHILOSOPHY -->
 
-  <button
-    class="philosophy-link"
-    onclick="openPhilosophy()"
-  >
+  <div class="special-links-row">
 
-    <span class="philosophy-link-inner">
+    <button
+      class="principles-link"
+      type="button"
+      disabled
+      aria-disabled="true"
+    >
+      <span class="principles-link-inner">
+        <span>
+          <span class="principles-link-label">PHILOSOPHY</span>
+          <span class="principles-link-title">
+            のぞみ整形外科の3つの理念（準備中）
+          </span>
+        </span>
+      </span>
+    </button>
 
-      <span>
+    <button
+      class="philosophy-link"
+      type="button"
+      onclick="openPhilosophy()"
+    >
 
-        <span class="philosophy-link-label">
-          PHILOSOPHY
+      <span class="philosophy-link-inner">
+
+        <span>
+
+          <span class="philosophy-link-label">
+            PHILOSOPHY
+          </span>
+
+          <span
+            id="philosophy-link-title"
+            class="philosophy-link-title"
+          ></span>
+
         </span>
 
-        <span
-          id="philosophy-link-title"
-          class="philosophy-link-title"
-        ></span>
+        <span class="philosophy-link-arrow">
+          →
+        </span>
 
       </span>
 
-      <span class="philosophy-link-arrow">
-        →
-      </span>
+    </button>
 
-    </span>
-
-  </button>
+  </div>
 
 
   <!-- CTA GUIDE -->
@@ -1634,7 +1731,7 @@
       '相談、見学、応募に関してはこちらから↓',
 
     cta_consult:
-      '相談する',
+      'メールで相談する',
 
     cta_visit:
       '見学する',
@@ -2458,7 +2555,7 @@
 
         <span class="theme-icon">
 
-          ${themeIcons[theme.icon_key] || ""}
+          ${themeIcons[theme.icon_key] || themeIcons.faq}
 
         </span>
 
@@ -2623,6 +2720,9 @@
     resetAnswerImages();
     renderAnswerGallery(theme);
     renderAnswerInformationLinks(theme);
+
+    const pitchLinkWrap=document.getElementById("pitch-link-wrap");
+    pitchLinkWrap.classList.toggle("visible",selectedJob === "理学療法士");
 
 
     showScreen("answer");
