@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: final-4cta-icons-subtext-v2-20260825 -->
+<!-- BUILD: footer-balance-fix-v2-20260825 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -84,8 +84,8 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:16px;
-      padding:14px 20px;
+      gap:14px;
+      padding:9px 16px;
     }
 
     .brand{
@@ -93,28 +93,28 @@
     }
 
     .brand-tagline{
-      margin:0 0 2px;
+      margin:0 0 1px;
       color:var(--primary-deep);
-      font-size:10px;
+      font-size:9px;
       letter-spacing:.18em;
     }
 
     .brand-name{
       margin:0;
       color:var(--text-dark);
-      font-size:16px;
+      font-size:15px;
       font-weight:700;
     }
 
     .brand-sub{
-      margin:2px 0 0;
+      margin:1px 0 0;
       color:var(--text-light);
-      font-size:11px;
+      font-size:10px;
     }
 
     .header-logo-wrap{
-      width:44px;
-      height:44px;
+      width:38px;
+      height:38px;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -135,7 +135,7 @@
     ========================= */
 
     main{
-      padding-bottom:225px;
+      padding-bottom:185px;
     }
 
     .screen{
@@ -899,7 +899,7 @@
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:8px;
-      margin:0 0 9px;
+      margin:0 0 6px;
     }
 
     .philosophy-link,
@@ -926,27 +926,27 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      min-height:64px;
-      padding:12px 15px;
-      border-radius:14px;
+      min-height:48px;
+      padding:8px 12px;
+      border-radius:12px;
       text-align:left;
       transition:.16s ease;
     }
 
     .philosophy-link-inner,
     .principles-link-inner{
-      border:2px solid var(--primary-dark);
-      background:linear-gradient(135deg,#dff4f1 0%,#cfeee9 100%);
-      box-shadow:0 5px 16px rgba(69,181,170,.18);
+      border:1px solid rgba(69,181,170,.38);
+      background:linear-gradient(135deg,#f4fbfa 0%,#eaf7f5 100%);
+      box-shadow:none;
     }
 
     .philosophy-link-label,
     .principles-link-label{
       display:block;
       margin-bottom:1px;
-      font-size:9px;
+      font-size:8px;
       font-weight:700;
-      letter-spacing:.16em;
+      letter-spacing:.14em;
     }
 
     .philosophy-link-label,
@@ -958,9 +958,9 @@
     .principles-link-title{
       display:block;
       color:var(--text-dark);
-      font-size:14px;
+      font-size:12px;
       font-weight:700;
-      line-height:1.45;
+      line-height:1.35;
     }
 
     .philosophy-link-arrow{
@@ -1044,7 +1044,7 @@
       }
 
       .header-inner{
-        padding:16px 42px;
+        padding:11px 34px;
       }
 
       .screen-inner{
@@ -1141,13 +1141,13 @@
        icon + subtitle
     ========================= */
     .cta{
-      padding:9px 10px max(10px,env(safe-area-inset-bottom));
+      padding:6px 8px max(7px,env(safe-area-inset-bottom));
     }
 
     .cta-message{
-      margin:0 0 8px;
+      margin:0 0 5px;
       color:var(--text-light);
-      font-size:10px;
+      font-size:9px;
       text-align:center;
       line-height:1.4;
     }
@@ -1161,20 +1161,20 @@
     .cta a{
       position:relative;
       min-width:0;
-      min-height:66px;
+      min-height:56px;
       display:grid;
-      grid-template-columns:34px minmax(0,1fr) 14px;
-      gap:7px;
+      grid-template-columns:30px minmax(0,1fr) 12px;
+      gap:6px;
       align-items:center;
-      padding:8px 9px;
-      border-radius:13px;
+      padding:6px 8px;
+      border-radius:12px;
       text-decoration:none;
       box-shadow:0 2px 9px rgba(70,100,95,.09);
     }
 
     .cta-icon{
-      width:34px;
-      height:34px;
+      width:30px;
+      height:30px;
       display:grid;
       place-items:center;
       border-radius:50%;
@@ -1183,8 +1183,8 @@
     }
 
     .cta-icon svg{
-      width:20px;
-      height:20px;
+      width:18px;
+      height:18px;
       fill:none;
       stroke:currentColor;
       stroke-width:1.8;
@@ -1204,17 +1204,17 @@
     .cta-label{
       display:block;
       color:inherit;
-      font-size:11px;
+      font-size:10.5px;
       font-weight:800;
       white-space:nowrap;
     }
 
     .cta-sub{
       display:block;
-      margin-top:4px;
+      margin-top:3px;
       color:inherit;
       opacity:.82;
-      font-size:9px;
+      font-size:8.5px;
       font-weight:600;
       white-space:nowrap;
     }
@@ -1272,7 +1272,7 @@
 
     @media (min-width:640px){
       .cta{
-        padding:10px 16px 12px;
+        padding:7px 14px 9px;
       }
 
       .cta-inner{
@@ -1281,27 +1281,140 @@
       }
 
       .cta a{
-        min-height:70px;
-        grid-template-columns:38px minmax(0,1fr) 14px;
-        padding:8px 11px;
+        min-height:60px;
+        grid-template-columns:32px minmax(0,1fr) 12px;
+        padding:7px 9px;
       }
 
       .cta-icon{
-        width:38px;
-        height:38px;
+        width:32px;
+        height:32px;
       }
 
       .cta-icon svg{
-        width:22px;
-        height:22px;
+        width:19px;
+        height:19px;
       }
 
       .cta-label{
-        font-size:12px;
+        font-size:11px;
       }
 
       .cta-sub{
+        font-size:9px;
+      }
+    }
+
+
+    /* =========================
+       FOOTER BALANCE FIX
+       Prevent overlap while keeping mobile viewport compact
+    ========================= */
+
+    /* Give the fixed footer just enough breathing room. */
+    .cta{
+      padding-top:8px;
+      padding-bottom:max(9px,env(safe-area-inset-bottom));
+    }
+
+    .cta-message{
+      margin:0 0 8px;
+      min-height:14px;
+      font-size:9px;
+      line-height:1.45;
+    }
+
+    .cta-inner{
+      gap:8px;
+    }
+
+    .cta a{
+      min-height:60px;
+      padding:7px 8px;
+    }
+
+    /* Keep the recommendation badge fully inside the CTA zone. */
+    .cta-online::before{
+      top:-7px;
+      right:8px;
+      z-index:2;
+      padding:3px 7px;
+    }
+
+    /* Preserve legibility on narrow phones. */
+    .cta-label{
+      font-size:10.5px;
+      line-height:1.2;
+    }
+
+    .cta-sub{
+      margin-top:3px;
+      font-size:8.5px;
+      line-height:1.2;
+    }
+
+    /* Philosophy links stay slimmer and visually separate from action CTAs. */
+    .special-links-row{
+      margin-bottom:9px;
+    }
+
+    .philosophy-link-inner,
+    .principles-link-inner{
+      min-height:50px;
+      padding:8px 12px;
+      border:1px solid rgba(69,181,170,.38);
+      background:linear-gradient(135deg,#f4fbfa 0%,#eaf7f5 100%);
+      box-shadow:none;
+    }
+
+    /* Reserve enough content space for the fixed footer. */
+    .main{
+      padding-bottom:202px;
+    }
+
+    @media (max-width:380px){
+      .cta a{
+        grid-template-columns:28px minmax(0,1fr) 10px;
+        gap:5px;
+        padding-left:6px;
+        padding-right:6px;
+      }
+
+      .cta-icon{
+        width:28px;
+        height:28px;
+      }
+
+      .cta-icon svg{
+        width:17px;
+        height:17px;
+      }
+
+      .cta-label{
         font-size:10px;
+      }
+
+      .cta-sub{
+        font-size:8px;
+      }
+    }
+
+    @media (min-width:640px){
+      .cta{
+        padding-top:8px;
+        padding-bottom:10px;
+      }
+
+      .cta-message{
+        margin-bottom:8px;
+      }
+
+      .cta a{
+        min-height:62px;
+      }
+
+      .main{
+        padding-bottom:155px;
       }
     }
 
