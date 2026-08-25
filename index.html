@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: footer-balance-fix-v2-20260825 -->
+<!-- BUILD: philosophy-header-background-only-v2-20260826 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -135,7 +135,7 @@
     ========================= */
 
     main{
-      padding-bottom:185px;
+      padding-bottom:155px;
     }
 
     .screen{
@@ -1369,7 +1369,7 @@
 
     /* Reserve enough content space for the fixed footer. */
     .main{
-      padding-bottom:202px;
+      padding-bottom:155px;
     }
 
     @media (max-width:380px){
@@ -1418,6 +1418,105 @@
       }
     }
 
+
+    /* =========================
+       HEADER PHILOSOPHY NAV
+    ========================= */
+    .header-philosophy-nav{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      padding:0 10px 8px;
+    }
+
+    .header-philosophy-nav button{
+      width:100%;
+      min-height:44px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      padding:7px 10px;
+      border:1px solid rgba(69,181,170,.38);
+      border-radius:11px;
+      background:linear-gradient(135deg,#f4fbfa 0%,#eaf7f5 100%);
+      color:var(--text-dark);
+      text-align:left;
+      cursor:pointer;
+      box-shadow:none;
+    }
+
+    .header-philosophy-nav button:hover,
+    .header-philosophy-nav button:focus-visible{
+      border-color:var(--primary-dark);
+      background:#e6f5f2;
+      outline:none;
+    }
+
+    .header-philosophy-text{
+      min-width:0;
+    }
+
+    .header-philosophy-label{
+      display:block;
+      margin-bottom:1px;
+      color:var(--primary-deep);
+      font-size:7.5px;
+      font-weight:700;
+      letter-spacing:.13em;
+    }
+
+    .header-philosophy-title{
+      display:block;
+      color:var(--text-dark);
+      font-size:10.5px;
+      font-weight:700;
+      line-height:1.25;
+    }
+
+    .header-philosophy-arrow{
+      flex:0 0 auto;
+      color:var(--primary-dark);
+      font-family:Georgia,serif;
+      font-size:19px;
+      line-height:1;
+    }
+
+    @media (min-width:640px){
+      .header-philosophy-nav{
+        padding:0 34px 9px;
+        gap:9px;
+      }
+
+      .header-philosophy-nav button{
+        min-height:46px;
+        padding:8px 12px;
+      }
+
+      .header-philosophy-title{
+        font-size:11.5px;
+      }
+
+      .header-philosophy-label{
+        font-size:8px;
+      }
+    }
+
+
+    /* Philosophy navigation: background-only buttons */
+    .header-philosophy-nav button{
+      border:none !important;
+      background:linear-gradient(135deg,#eef9f7 0%,#e2f4f1 100%) !important;
+      box-shadow:none !important;
+    }
+
+    .header-philosophy-nav button:hover,
+    .header-philosophy-nav button:focus-visible{
+      border:none !important;
+      background:#d9f0ec !important;
+      outline:none;
+    }
+
   </style>
 </head>
 
@@ -1450,6 +1549,34 @@
       <div class="header-logo-wrap">
         <img class="header-logo" src="nozomi-logo.png" alt="のぞみ整形外科グループ ロゴ">
       </div>
+
+    </div>
+
+    <div class="header-philosophy-nav">
+
+      <button
+        class="principles-link"
+        type="button"
+        onclick="openPrinciples()"
+      >
+        <span class="header-philosophy-text">
+          <span class="header-philosophy-label">PHILOSOPHY</span>
+          <span class="header-philosophy-title">のぞみ整形外科の3つの理念</span>
+        </span>
+        <span class="header-philosophy-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <button
+        class="philosophy-link"
+        type="button"
+        onclick="openPhilosophy()"
+      >
+        <span class="header-philosophy-text">
+          <span class="header-philosophy-label">PHILOSOPHY</span>
+          <span class="header-philosophy-title">のぞみ整形外科が目指す医療</span>
+        </span>
+        <span class="header-philosophy-arrow" aria-hidden="true">→</span>
+      </button>
 
     </div>
 
@@ -1914,57 +2041,6 @@
 ========================== -->
 
 <div class="cta">
-
-  <!-- PRINCIPLES + PHILOSOPHY -->
-
-  <div class="special-links-row">
-
-    <button
-      class="principles-link"
-      type="button"
-      onclick="openPrinciples()"
-    >
-      <span class="principles-link-inner">
-        <span>
-          <span class="principles-link-label">PHILOSOPHY</span>
-          <span class="principles-link-title">
-            のぞみ整形外科の3つの理念
-          </span>
-        </span>
-      </span>
-    </button>
-
-    <button
-      class="philosophy-link"
-      type="button"
-      onclick="openPhilosophy()"
-    >
-
-      <span class="philosophy-link-inner">
-
-        <span>
-
-          <span class="philosophy-link-label">
-            PHILOSOPHY
-          </span>
-
-          <span
-            id="philosophy-link-title"
-            class="philosophy-link-title"
-          ></span>
-
-        </span>
-
-        <span class="philosophy-link-arrow">
-          →
-        </span>
-
-      </span>
-
-    </button>
-
-  </div>
-
 
   <!-- CTA GUIDE -->
 
