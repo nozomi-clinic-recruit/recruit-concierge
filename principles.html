@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>のぞみ整形外科の3つの理念｜採用コンシェルジュ</title>
+<style>
+:root{
+  --primary:#78cfc7;
+  --primary-dark:#45b5aa;
+  --primary-deep:#328f87;
+  --primary-soft:#e8f7f5;
+  --primary-pale:#dff3f1;
+  --text:#666a6c;
+  --text-dark:#45494b;
+  --text-light:#8a8e90;
+  --white:#fff;
+  --bg:#f7f8f8;
+  --border:#e4e7e7;
+  --shadow:0 6px 22px rgba(65,95,92,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic","YuGothic","Meiryo",sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.8;
+  letter-spacing:.02em;
+}
+button,a{font:inherit}
+.app{
+  max-width:900px;
+  min-height:100vh;
+  margin:0 auto;
+  background:#fff;
+  box-shadow:0 0 40px rgba(0,0,0,.04);
+}
+.header{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:14px 20px;
+}
+.brand-tagline{
+  margin:0 0 2px;
+  color:var(--primary-deep);
+  font-size:10px;
+  letter-spacing:.18em;
+}
+.brand-name{
+  margin:0;
+  color:var(--text-dark);
+  font-size:16px;
+  font-weight:700;
+}
+.brand-sub{
+  margin:2px 0 0;
+  color:var(--text-light);
+  font-size:11px;
+}
+.header-logo{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+}
+.back-button{
+  display:inline-block;
+  margin:0 0 20px;
+  border:0;
+  padding:0;
+  background:transparent;
+  color:var(--primary-deep);
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+.hero{
+  position:relative;
+  min-height:380px;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+  background:
+    radial-gradient(circle at 22% 18%,rgba(255,255,255,.96),transparent 26%),
+    linear-gradient(135deg,#fbfefd 0%,#f2faf8 54%,#e9f7f3 100%);
+}
+.hero-copy{
+  position:relative;
+  z-index:2;
+  padding:54px 42px 48px;
+}
+.hero-image{
+  min-height:380px;
+  background:
+    linear-gradient(90deg,rgba(246,251,250,.94) 0%,rgba(246,251,250,.28) 30%,rgba(255,255,255,0) 60%),
+    url("principles-hero.jpg") center/cover no-repeat;
+}
+.eyebrow{
+  margin-bottom:8px;
+  color:var(--primary-deep);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.18em;
+}
+.hero h1{
+  margin:0;
+  color:var(--text-dark);
+  font-size:34px;
+  line-height:1.45;
+}
+.hero h1 strong{
+  display:block;
+  color:var(--primary-deep);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:58px;
+  font-weight:400;
+  line-height:1.15;
+}
+.hero-lead{
+  max-width:510px;
+  margin:22px 0 0;
+  font-size:15px;
+}
+.content{
+  padding:0 58px 28px;
+}
+.principle{
+  position:relative;
+  padding:48px 0 44px 150px;
+  border-bottom:1px solid var(--border);
+}
+.principle-number{
+  position:absolute;
+  top:38px;
+  left:0;
+  color:var(--primary-pale);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:112px;
+  line-height:1;
+  user-select:none;
+}
+.principle-kicker{
+  margin:0 0 7px;
+  color:var(--primary-deep);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.15em;
+}
+.principle h2{
+  margin:0 0 20px;
+  color:var(--text-dark);
+  font-size:24px;
+  line-height:1.55;
+}
+.principle h2 em{
+  color:var(--primary-deep);
+  font-style:normal;
+}
+.summary{
+  margin:0 0 20px;
+  padding:16px 18px;
+  border-left:4px solid var(--primary);
+  border-radius:0 12px 12px 0;
+  color:var(--text-dark);
+  background:var(--primary-soft);
+  font-size:15px;
+  font-weight:700;
+}
+.principle p{margin:0 0 16px}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+.tags span{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:5px 11px;
+  border:1px solid rgba(69,181,170,.22);
+  border-radius:999px;
+  background:#fff;
+  color:var(--primary-deep);
+  font-size:12px;
+  font-weight:700;
+}
+.closing{
+  position:relative;
+  min-height:300px;
+  overflow:hidden;
+  margin-top:18px;
+  background:
+    linear-gradient(90deg,rgba(244,251,249,.98) 0%,rgba(244,251,249,.94) 42%,rgba(244,251,249,.30) 68%,rgba(255,255,255,.04) 100%),
+    url("principles-footer.jpg") center right/cover no-repeat;
+}
+.closing-inner{
+  position:relative;
+  z-index:2;
+  max-width:590px;
+  padding:50px 58px 56px;
+}
+.closing strong{
+  display:block;
+  margin-bottom:12px;
+  color:var(--primary-deep);
+  font-size:23px;
+  line-height:1.6;
+}
+.closing p{margin:0 0 24px}
+.primary-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:10px 20px;
+  border:1px solid var(--primary-deep);
+  border-radius:999px;
+  background:rgba(255,255,255,.86);
+  color:var(--primary-deep);
+  font-weight:700;
+  text-decoration:none;
+  cursor:pointer;
+}
+.cta{
+  position:sticky;
+  bottom:0;
+  z-index:40;
+  padding:9px 12px max(10px, env(safe-area-inset-bottom));
+  border-top:1px solid var(--border);
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(8px);
+}
+.cta-message{
+  margin:0 0 7px;
+  font-size:11px;
+  text-align:center;
+}
+.cta-inner{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.cta a{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 4px;
+  border-radius:12px;
+  background:var(--primary-soft);
+  color:var(--primary-deep);
+  font-size:12px;
+  font-weight:700;
+  text-align:center;
+  text-decoration:none;
+}
+.cta a:last-child{
+  background:var(--primary-dark);
+  color:#fff;
+}
+@media(max-width:640px){
+  .hero{
+    display:block;
+    min-height:430px;
+    background:
+      linear-gradient(90deg,rgba(249,253,252,.97) 0%,rgba(249,253,252,.93) 46%,rgba(249,253,252,.25) 75%,rgba(255,255,255,0) 100%),
+      url("principles-hero.jpg") 66% center/cover no-repeat;
+  }
+  .hero-image{display:none}
+  .hero-copy{padding:38px 22px 40px}
+  .hero h1{font-size:27px}
+  .hero h1 strong{font-size:47px}
+  .hero-lead{max-width:78%;font-size:14px}
+  .content{padding:0 22px 20px}
+  .principle{padding:38px 0 34px 0}
+  .principle-number{
+    position:static;
+    margin-bottom:-10px;
+    font-size:76px;
+  }
+  .principle h2{font-size:21px}
+  .closing{
+    min-height:330px;
+    background:
+      linear-gradient(180deg,rgba(244,251,249,.98) 0%,rgba(244,251,249,.91) 46%,rgba(244,251,249,.24) 78%,rgba(255,255,255,.03) 100%),
+      url("principles-footer.jpg") center/cover no-repeat;
+  }
+  .closing-inner{padding:40px 22px 90px}
+  .closing strong{font-size:20px}
+  .header-inner{padding:12px 16px}
+  .cta a{font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="header-inner">
+      <div>
+        <p class="brand-tagline">your hope, our hope.</p>
+        <p class="brand-name">のぞみ整形外科グループ</p>
+        <p class="brand-sub">採用コンシェルジュ</p>
+      </div>
+      <img class="header-logo" src="nozomi-logo.png" alt="のぞみ整形外科グループ ロゴ">
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <button class="back-button" type="button" onclick="history.back()">← 前の画面へ戻る</button>
+        <div class="eyebrow">PHILOSOPHY</div>
+        <h1>のぞみ整形外科の<strong>3つの理念</strong></h1>
+        <p class="hero-lead">
+          私たちが医療や仕事に向き合ううえで、大切にしている3つの理念をご紹介します。
+        </p>
+      </div>
+      <div class="hero-image" aria-hidden="true"></div>
+    </section>
+
+    <div class="content">
+
+      <section class="principle">
+        <div class="principle-number">01</div>
+        <p class="principle-kicker">PHILOSOPHY 01</p>
+        <h2>私たちはクリニックの<em>あるべき姿</em>を常にのぞみます</h2>
+        <div class="summary">
+          その時々で何がより良いのかを考え、医療・サービス・組織のあり方を進化させ続けます。
+        </div>
+        <p>
+          私たちが大切にしているのは、患者さんがその人らしく生活し、役割や楽しみを持って生きられること。そして、スタッフ同士が敬意をもって関わり、ともに成長できる組織であることです。
+        </p>
+        <p>
+          医療や社会、地域のニーズは常に変化しています。だからこそ、今のやり方を完成形とは考えず、その時々で何がより良いのかを考え、医療・サービス・組織のあり方を進化させ続けます。
+        </p>
+        <div class="tags"><span>変化</span><span>成長</span><span>より良い姿</span></div>
+      </section>
+
+      <section class="principle">
+        <div class="principle-number">02</div>
+        <p class="principle-kicker">PHILOSOPHY 02</p>
+        <h2>私たちは<em>身近で親しみある安心できる</em>クリニックを目指します</h2>
+        <div class="summary">
+          身近さ、心地よい関わり、そして医療者としての確かな専門性。そのすべてを大切にします。
+        </div>
+        <p>
+          「身近」とは、必要なときに頼っていただけること。「親しみ」とは、心地よい接遇だけでなく、患者さんの悩みや相談に最後まで向き合うこと。「安心」とは、医療者として知識と技術を磨き、質の高い医療を提供することです。
+        </p>
+        <p>
+          一人ひとりの力だけではなく、多職種がそれぞれの専門性を生かして協力し、地域の皆さんに「ここがあってよかった」と思っていただけるクリニックを目指します。
+        </p>
+        <div class="tags"><span>身近</span><span>親しみ</span><span>安心</span></div>
+      </section>
+
+      <section class="principle">
+        <div class="principle-number">03</div>
+        <p class="principle-kicker">PHILOSOPHY 03</p>
+        <h2>私たちは<em>患者さんと私たちと社会の為に</em>楽しく真面目に働きます</h2>
+        <div class="summary">
+          患者さん、ともに働く仲間、そして地域社会にとって、より良い仕事を目指します。
+        </div>
+        <p>
+          私たちは、患者さんだけでなく、ともに働く仲間、そして地域社会にとってより良い仕事をすることを大切にしています。
+        </p>
+        <p>
+          患者さんに良い医療を届けるためには、働くスタッフ自身が仕事にやりがいを感じ、安心して働き続けられることも大切です。そして医療機関として地域医療を支え、人々の健康を守り続けます。
+        </p>
+        <p>
+          「楽しく」は、仕事の中にやりがいや成長を感じること。「真面目に」は、より良い仕事を考え、行動し続けること。患者さん・私たち・社会がともにより良くなる仕事を目指します。
+        </p>
+        <div class="tags"><span>やりがい</span><span>仲間</span><span>地域社会</span></div>
+      </section>
+    </div>
+
+    <section class="closing">
+      <div class="closing-inner">
+        <strong>医療を通して、<br>地域の「これから」に貢献していく。</strong>
+        <p>
+          この3つの理念を大切にしながら、患者さん・スタッフ・地域とともに歩み続けます。
+        </p>
+        <a class="primary-button" href="./index.html">← テーマ選択画面に戻る</a>
+      </div>
+    </section>
+  </main>
+
+  <div class="cta">
+    <p class="cta-message">相談、見学、応募に関してはこちらから↓</p>
+    <div class="cta-inner">
+      <a href="mailto:staff-recruit@nozomi-clinic.jp">メールで相談する</a>
+      <a href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">見学する</a>
+      <a href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">応募する</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
