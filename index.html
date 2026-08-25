@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: principles-integrated-v1-20260825 -->
+<!-- BUILD: maintenance-cta-tracking-v1-20260825 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -988,8 +988,29 @@
 
     .cta-inner{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(4,1fr);
       gap:8px;
+    }
+
+    .cta button.cta-action{
+      min-height:50px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:7px 4px;
+      border:0;
+      border-radius:12px;
+      text-align:center;
+      font-size:13px;
+      font-weight:700;
+      color:var(--primary-deep);
+      background:var(--primary-soft);
+      cursor:pointer;
+    }
+
+    @media (max-width:520px){
+      .cta-inner{ grid-template-columns:repeat(2,1fr); }
+      main{ padding-bottom:285px; }
     }
 
     .cta a{
@@ -1587,6 +1608,9 @@
               <strong>医療を通して、地域の「これから」に貢献していく。</strong>
               <p>この3つの理念を大切にしながら、患者さん・スタッフ・地域とともに歩み続けます。</p>
               <button class="primary-button philosophy-return-button" type="button" onclick="returnToThemesFromPrinciples()">テーマ選択画面に戻る</button>
+              <div id="principles-pitch-link-wrap" class="pitch-link-wrap">
+                <a class="pitch-link" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">採用ピッチ資料本編はこちら ↗</a>
+              </div>
             </div>
           </div>
         </div>
@@ -1667,6 +1691,13 @@
   <!-- CTA BUTTONS -->
 
   <div class="cta-inner">
+
+    <button
+      id="cta-casual"
+      class="cta-action"
+      type="button"
+      onclick="handleCasualInterview()"
+    >カジュアル面談を希望する</button>
 
     <a
       id="cta-consult"
@@ -1864,6 +1895,12 @@
     <button class="primary-button philosophy-return-button" type="button" onclick="returnToThemesFromPhilosophy()">
       テーマ選択画面に戻る
     </button>
+
+    <div id="philosophy-pitch-link-wrap" class="pitch-link-wrap">
+      <a class="pitch-link" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">
+        採用ピッチ資料本編はこちら ↗
+      </a>
+    </div>
 
   `;
 
@@ -2960,6 +2997,9 @@
     }
 
 
+    const philosophyPitch=document.getElementById("philosophy-pitch-link-wrap");
+    if(philosophyPitch){ philosophyPitch.classList.toggle("visible", selectedJob === "理学療法士"); }
+
     showScreen("philosophy");
 
   }
@@ -2995,6 +3035,8 @@
   function openPrinciples(){
     const currentScreen=getCurrentScreen();
     if(currentScreen!=="principles") previousScreenBeforePrinciples=currentScreen;
+    const principlesPitch=document.getElementById("principles-pitch-link-wrap");
+    if(principlesPitch){ principlesPitch.classList.toggle("visible", selectedJob === "理学療法士"); }
     showScreen("principles");
   }
   function returnFromPrinciples(){ showScreen(previousScreenBeforePrinciples || "opening"); }
@@ -3002,6 +3044,52 @@
     if(selectedJob && selectedCareer){ renderThemes(); showScreen("themes"); }
     else{ showScreen("jobs"); }
   }
+
+  function handleCasualInterview(){
+    alert("カジュアル面談の受付方法は現在準備中です。");
+  }
+
+
+
+
+  /* ==========================================
+     CLICK TRACKING
+     Apps Script Web App URLを設定すると有効化
+     ========================================== */
+  const CLICK_LOG_ENDPOINT = "";
+
+  function trackClick(eventName, element){
+    if(!CLICK_LOG_ENDPOINT) return;
+    const payload = {
+      timestamp: new Date().toISOString(),
+      event: eventName || "click",
+      label: (element?.innerText || element?.textContent || "").trim().replace(/\s+/g," ").slice(0,120),
+      element_id: element?.id || "",
+      screen: getCurrentScreen(),
+      job: selectedJob || "",
+      career: selectedCareer || "",
+      href: element?.href || "",
+      page_url: location.href,
+      referrer: document.referrer || "",
+      user_agent: navigator.userAgent
+    };
+    try{
+      fetch(CLICK_LOG_ENDPOINT,{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify(payload),
+        keepalive:true
+      });
+    }catch(e){}
+  }
+
+  document.addEventListener("click", event=>{
+    const target=event.target.closest("button,a");
+    if(!target) return;
+    trackClick("click",target);
+  },true);
+
 
   /*
     ==========================================
