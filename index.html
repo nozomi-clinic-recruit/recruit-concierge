@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: final-4cta-coral-online-v1-20260825 -->
+<!-- BUILD: final-4cta-icons-subtext-v2-20260825 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -1135,74 +1135,114 @@
 
 
 
+
     /* =========================
        FINAL 4-CTA FOOTER
+       icon + subtitle
     ========================= */
     .cta{
       padding:9px 10px max(10px,env(safe-area-inset-bottom));
     }
+
     .cta-message{
       margin:0 0 8px;
-      font-size:10px;
       color:var(--text-light);
+      font-size:10px;
       text-align:center;
+      line-height:1.4;
     }
+
     .cta-inner{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
       gap:7px;
     }
+
     .cta a{
       position:relative;
-      min-height:48px;
-      display:flex;
-      align-items:center;
-      justify-content:flex-start;
+      min-width:0;
+      min-height:66px;
+      display:grid;
+      grid-template-columns:34px minmax(0,1fr) 14px;
       gap:7px;
-      padding:7px 9px;
-      border-radius:12px;
-      font-size:11px;
-      font-weight:700;
-      line-height:1.2;
+      align-items:center;
+      padding:8px 9px;
+      border-radius:13px;
       text-decoration:none;
-      box-shadow:0 2px 8px rgba(70,100,95,.08);
+      box-shadow:0 2px 9px rgba(70,100,95,.09);
     }
+
     .cta-icon{
-      width:24px;
-      min-width:24px;
-      height:24px;
+      width:34px;
+      height:34px;
       display:grid;
       place-items:center;
       border-radius:50%;
-      font-size:15px;
-      line-height:1;
-      background:rgba(255,255,255,.78);
+      background:rgba(255,255,255,.86);
+      border:1px solid currentColor;
     }
+
+    .cta-icon svg{
+      width:20px;
+      height:20px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .cta-text{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:center;
+      line-height:1.15;
+    }
+
     .cta-label{
-      flex:1;
+      display:block;
+      color:inherit;
+      font-size:11px;
+      font-weight:800;
       white-space:nowrap;
     }
-    .cta-arrow{
-      font-size:16px;
-      font-weight:400;
-      line-height:1;
-      opacity:.9;
+
+    .cta-sub{
+      display:block;
+      margin-top:4px;
+      color:inherit;
+      opacity:.82;
+      font-size:9px;
+      font-weight:600;
+      white-space:nowrap;
     }
+
+    .cta-arrow{
+      color:inherit;
+      font-size:18px;
+      line-height:1;
+      opacity:.92;
+    }
+
     .cta-mail{
       border:1px solid rgba(69,181,170,.34);
       background:#f8fdfc !important;
       color:var(--primary-deep) !important;
     }
+
     .cta-online{
       border:1px solid #ef9eaa;
       background:#fff2f4 !important;
       color:#dc6678 !important;
     }
+
     .cta-online::before{
       content:"おすすめ!";
       position:absolute;
       top:-9px;
-      right:10px;
+      right:9px;
       padding:3px 7px;
       border-radius:999px;
       background:#e86d80;
@@ -1213,37 +1253,55 @@
       letter-spacing:.02em;
       box-shadow:0 2px 6px rgba(220,102,120,.22);
     }
+
     .cta-visit{
       border:1px solid rgba(113,160,105,.30);
       background:#fbfdf9 !important;
       color:#568b55 !important;
     }
+
     .cta-apply{
       border:1px solid var(--primary-deep);
       background:linear-gradient(135deg,var(--primary-dark),var(--primary-deep)) !important;
       color:#fff !important;
     }
+
     .cta-apply .cta-icon{
       color:var(--primary-deep);
     }
+
     @media (min-width:640px){
       .cta{
         padding:10px 16px 12px;
       }
+
       .cta-inner{
         grid-template-columns:repeat(4,minmax(0,1fr));
         gap:9px;
       }
+
       .cta a{
-        min-height:52px;
+        min-height:70px;
+        grid-template-columns:38px minmax(0,1fr) 14px;
         padding:8px 11px;
+      }
+
+      .cta-icon{
+        width:38px;
+        height:38px;
+      }
+
+      .cta-icon svg{
+        width:22px;
+        height:22px;
+      }
+
+      .cta-label{
         font-size:12px;
       }
-      .cta-icon{
-        width:28px;
-        min-width:28px;
-        height:28px;
-        font-size:16px;
+
+      .cta-sub{
+        font-size:10px;
       }
     }
 
@@ -1808,26 +1866,64 @@
   <div class="cta-inner">
 
     <a id="cta-mail" class="cta-mail" href="mailto:staff-recruit@nozomi-clinic.jp">
-      <span class="cta-icon" aria-hidden="true">✉</span>
-      <span class="cta-label">メールで相談</span>
+      <span class="cta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="3.5" y="5.5" width="17" height="13" rx="2"></rect>
+          <path d="M4.5 7l7.5 6 7.5-6"></path>
+        </svg>
+      </span>
+      <span class="cta-text">
+        <span class="cta-label">メールで相談</span>
+        <span class="cta-sub">気軽に質問する</span>
+      </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
 
     <a id="cta-online" class="cta-online" href="#" onclick="event.preventDefault(); alert('オンライン相談の予約フォームは準備中です。');">
-      <span class="cta-icon" aria-hidden="true">💬</span>
-      <span class="cta-label">オンライン相談</span>
+      <span class="cta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <rect x="3.5" y="4.5" width="17" height="12" rx="2"></rect>
+          <path d="M8 19.5h8"></path>
+          <path d="M12 16.5v3"></path>
+          <path d="M8.2 9.4c.8-1.1 2-1.7 3.3-1.7s2.5.6 3.3 1.7"></path>
+          <path d="M9.5 11.5h.01M13.5 11.5h.01"></path>
+        </svg>
+      </span>
+      <span class="cta-text">
+        <span class="cta-label">オンライン相談</span>
+        <span class="cta-sub">スタッフと話す</span>
+      </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
 
     <a id="cta-visit" class="cta-visit" href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">
-      <span class="cta-icon" aria-hidden="true">⌂</span>
-      <span class="cta-label">見学</span>
+      <span class="cta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 21V8l8-4 8 4v13"></path>
+          <path d="M9 21v-6h6v6"></path>
+          <path d="M8 10h2M14 10h2"></path>
+        </svg>
+      </span>
+      <span class="cta-text">
+        <span class="cta-label">見学する</span>
+        <span class="cta-sub">職場を見てみる</span>
+      </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
 
     <a id="cta-apply" class="cta-apply" href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">
-      <span class="cta-icon" aria-hidden="true">✎</span>
-      <span class="cta-label">応募</span>
+      <span class="cta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 3.5h9l3 3V20.5H6z"></path>
+          <path d="M15 3.5v4h4"></path>
+          <path d="M9 11h6M9 14h4"></path>
+          <path d="M14.5 17.5l4-4 1.5 1.5-4 4-2 .5z"></path>
+        </svg>
+      </span>
+      <span class="cta-text">
+        <span class="cta-label">応募する</span>
+        <span class="cta-sub">エントリーする</span>
+      </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
 
