@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: common-ui-update-v5-20260824 -->
+<!-- BUILD: principles-integrated-v1-20260825 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -853,6 +853,26 @@
       outline:none;
     }
 
+
+
+    /* 3 PRINCIPLES */
+    .principles-frame{margin:-34px -22px -60px}
+    .principles-hero{min-height:360px;padding:34px 22px 42px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(90deg,rgba(249,253,252,.98),rgba(249,253,252,.88) 48%,rgba(255,255,255,.08)),url("principles-hero.jpg") 68% center/cover no-repeat}
+    .principles-hero h1{margin:0;color:var(--text-dark);font-size:30px;line-height:1.45}
+    .principles-hero h1 strong{display:block;color:var(--primary-deep);font:400 52px/1.2 Georgia,serif}
+    .principles-hero p{max-width:520px;margin:18px 0 0}
+    .principles-body{padding:0 22px}
+    .principle{position:relative;padding:40px 0 38px 116px;border-bottom:1px solid var(--border)}
+    .principle-no{position:absolute;left:0;top:31px;color:var(--primary-pale);font:400 86px/1 Georgia,serif}
+    .principle h2{margin:0 0 18px;color:var(--text-dark);font-size:22px;line-height:1.65}
+    .principle h2 em{color:var(--primary-deep);font-style:normal}
+    .principle-summary{margin:0 0 19px;padding:15px 17px;border-left:4px solid var(--primary);border-radius:0 12px 12px 0;background:var(--primary-soft);color:var(--text-dark);font-weight:700}
+    .principle p{margin:0 0 16px}
+    .principles-closing{min-height:300px;margin-top:34px;padding:45px 22px 72px;background:linear-gradient(180deg,rgba(244,251,249,.98),rgba(244,251,249,.88) 48%,rgba(255,255,255,.05)),url("principles-footer.jpg") center/cover no-repeat}
+    .principles-closing strong{display:block;margin-bottom:12px;color:var(--primary-deep);font-size:21px}
+    @media(max-width:639px){.principle{padding:34px 0 30px}.principle-no{position:static;margin-bottom:-10px;font-size:70px}}
+    @media(min-width:640px){.principles-frame{margin:-50px -58px -90px}.principles-hero{min-height:410px;padding:50px 58px 54px}.principles-body{padding:0 58px}.principle{padding-left:145px}.principle-no{font-size:104px}.principles-closing{margin-left:-58px;margin-right:-58px;padding:54px 58px 96px}}
+
     /* =========================
        CTA + PHILOSOPHY BUTTON
     ========================= */
@@ -896,7 +916,7 @@
     }
 
     .principles-link{
-      cursor:default;
+      cursor:pointer;
     }
 
     .philosophy-link-inner,
@@ -1533,6 +1553,47 @@
 
     </section>
 
+    <!-- ========================= 3 PRINCIPLES ========================== -->
+    <section id="principles" class="screen">
+      <div class="screen-inner">
+        <button class="back-button" type="button" onclick="returnFromPrinciples()">← 前の画面へ戻る</button>
+        <div class="principles-frame">
+          <div class="principles-hero">
+            <div class="eyebrow">PHILOSOPHY</div>
+            <h1>のぞみ整形外科の<strong>3つの理念</strong></h1>
+            <p>私たちが医療や仕事に向き合ううえで、大切にしている3つの理念をご紹介します。</p>
+          </div>
+          <div class="principles-body">
+            <section class="principle"><div class="principle-no">01</div>
+              <h2>私たちはクリニックの<em>あるべき姿</em>を常にのぞみます</h2>
+              <div class="principle-summary">その時々で何がより良いのかを考え、医療・サービス・組織のあり方を進化させ続けます。</div>
+              <p>私たちが大切にしているのは、患者さんがその人らしく生活し、役割や楽しみを持って生きられること。そして、スタッフ同士が敬意をもって関わり、ともに成長できる組織であることです。</p>
+              <p>医療や社会、地域のニーズは常に変化しています。だからこそ、今のやり方を完成形とは考えず、その時々で何がより良いのかを考え、医療・サービス・組織のあり方を進化させ続けます。</p>
+            </section>
+            <section class="principle"><div class="principle-no">02</div>
+              <h2>私たちは<em>身近で親しみある安心できる</em>クリニックを目指します</h2>
+              <div class="principle-summary">身近さ、心地よい関わり、そして医療者としての確かな専門性。そのすべてを大切にします。</div>
+              <p>「身近」とは、必要なときに頼っていただけること。「親しみ」とは、心地よい接遇だけでなく、患者さんの悩みや相談に最後まで向き合うこと。「安心」とは、医療者として知識と技術を磨き、質の高い医療を提供することです。</p>
+              <p>一人ひとりの力だけではなく、多職種がそれぞれの専門性を生かして協力し、地域の皆さんに「ここがあってよかった」と思っていただけるクリニックを目指します。</p>
+            </section>
+            <section class="principle"><div class="principle-no">03</div>
+              <h2>私たちは<em>患者さんと私たちと社会の為に</em>楽しく真面目に働きます</h2>
+              <div class="principle-summary">患者さん、ともに働く仲間、そして地域社会にとって、より良い仕事を目指します。</div>
+              <p>私たちは、患者さんだけでなく、ともに働く仲間、そして地域社会にとってより良い仕事をすることを大切にしています。</p>
+              <p>患者さんに良い医療を届けるためには、働くスタッフ自身が仕事にやりがいを感じ、安心して働き続けられることも大切です。そして医療機関として地域医療を支え、人々の健康を守り続けます。</p>
+              <p>「楽しく」は、仕事の中にやりがいや成長を感じること。「真面目に」は、より良い仕事を考え、行動し続けること。患者さん・私たち・社会がともにより良くなる仕事を目指します。</p>
+            </section>
+            <div class="principles-closing">
+              <strong>医療を通して、地域の「これから」に貢献していく。</strong>
+              <p>この3つの理念を大切にしながら、患者さん・スタッフ・地域とともに歩み続けます。</p>
+              <button class="primary-button philosophy-return-button" type="button" onclick="returnToThemesFromPrinciples()">テーマ選択画面に戻る</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
   </main>
 
 </div>
@@ -1551,14 +1612,13 @@
     <button
       class="principles-link"
       type="button"
-      disabled
-      aria-disabled="true"
+      onclick="openPrinciples()"
     >
       <span class="principles-link-inner">
         <span>
           <span class="principles-link-label">PHILOSOPHY</span>
           <span class="principles-link-title">
-            のぞみ整形外科の3つの理念（準備中）
+            のぞみ整形外科の3つの理念
           </span>
         </span>
       </span>
@@ -2209,6 +2269,7 @@
   };
 
   let previousScreenBeforePhilosophy = "opening";
+  let previousScreenBeforePrinciples = "opening";
 
   const readThemes = new Set();
 
@@ -2929,6 +2990,18 @@
 
   }
 
+
+
+  function openPrinciples(){
+    const currentScreen=getCurrentScreen();
+    if(currentScreen!=="principles") previousScreenBeforePrinciples=currentScreen;
+    showScreen("principles");
+  }
+  function returnFromPrinciples(){ showScreen(previousScreenBeforePrinciples || "opening"); }
+  function returnToThemesFromPrinciples(){
+    if(selectedJob && selectedCareer){ renderThemes(); showScreen("themes"); }
+    else{ showScreen("jobs"); }
+  }
 
   /*
     ==========================================
