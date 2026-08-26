@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: philosophy-content-fix-v1-20260826 -->
+<!-- BUILD: online-consult-link-v1-20260826 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -2068,7 +2068,7 @@
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
 
-    <a id="cta-online" class="cta-online" href="#" onclick="event.preventDefault(); alert('オンライン相談の予約フォームは準備中です。');">
+    <a id="cta-online" class="cta-online" href="online-consult.html" target="_blank" rel="noopener noreferrer">
       <span class="cta-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
           <rect x="3.5" y="4.5" width="17" height="12" rx="2"></rect>
@@ -3426,6 +3426,37 @@
   }
 
 
+
+
+  /*
+    ==========================================
+    ONLINE CONSULT
+    選択済みの職種・キャリアをフォームへ引き継ぐ
+    ==========================================
+  */
+
+  function updateOnlineConsultLink(){
+    const link = document.getElementById("cta-online");
+    if(!link) return;
+
+    const params = new URLSearchParams();
+
+    if(selectedJob){
+      params.set("job", selectedJob);
+    }
+
+    if(selectedCareer){
+      params.set("career", selectedCareer);
+    }
+
+    link.href =
+      "online-consult.html" +
+      (params.toString() ? `?${params.toString()}` : "");
+  }
+
+  document
+    .getElementById("cta-online")
+    ?.addEventListener("click", updateOnlineConsultLink);
 
 
   /* ==========================================
