@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: behavior-log-ready-v1-20260826 -->
+<!-- BUILD: behavior-log-endpoint-fix-v2-20260826 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -3469,13 +3469,13 @@
 
 
   
-  const BEHAVIOR_LOG_ENDPOINT = "https://script.google.com/macros/s/AKfycby-A5zOUQzkObJV64L_W1b7l4ip768JFxSgZNIlxgZ5XDJY46xgL5m73T0UDn9usUkuXA/exec";
+  
 
 /* ==========================================
      BEHAVIOR LOG
      匿名行動ログ：30日保持 / source・campaign対応
      ========================================== */
-  const ACTION_LOG_ENDPOINT = ""; // 行動ログGASのWebアプリURLを設定
+  const ACTION_LOG_ENDPOINT = "https://script.google.com/macros/s/AKfycby-A5zOUQzkObJV64L_W1b7l4ip768JFxSgZNIlxgZ5XDJY46xgL5m73T0UDn9usUkuXA/exec"; // 行動ログGASのWebアプリURL
   const ACTION_LOG_PROJECT_KEY = "recruit_concierge_v1";
   const ACTION_SESSION_STORAGE_KEY = "recruit_concierge_action_session_v1";
   const ACTION_SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
