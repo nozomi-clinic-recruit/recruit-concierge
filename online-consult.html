@@ -309,6 +309,107 @@ textarea{min-height:110px;resize:vertical}
 <script>
 const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwymcRgYPo3zpUwj_5moWkJL9wpqLy_CmI9G9cuqpall00gAkXAUOJhdm29FVoUUKNVDw/exec"; // Apps Script WebアプリURL
 
+
+  
+  const BEHAVIOR_LOG_ENDPOINT = "https://script.google.com/macros/s/AKfycby-A5zOUQzkObJV64L_W1b7l4ip768JFxSgZNIlxgZ5XDJY46xgL5m73T0UDn9usUkuXA/exec";
+
+/* ==========================================
+     BEHAVIOR LOG
+     匿名行動ログ：30日保持 / source・campaign対応
+     ========================================== */
+  const ACTION_LOG_ENDPOINT = ""; // 行動ログGASのWebアプリURLを設定
+  const ACTION_LOG_PROJECT_KEY = "recruit_concierge_v1";
+  const ACTION_SESSION_STORAGE_KEY = "recruit_concierge_action_session_v1";
+  const ACTION_SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
+
+  function createActionId(){
+    if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "sid_" + Date.now().toString(36) + Math.random().toString(36).slice(2,10);
+  }
+
+  function getActionSession(){
+    const now = Date.now();
+    const params = new URLSearchParams(location.search);
+    const explicitSource = params.get("source") || "";
+    const explicitCampaign = params.get("campaign") || "";
+    let session = null;
+
+    try{
+      session = JSON.parse(localStorage.getItem(ACTION_SESSION_STORAGE_KEY) || "null");
+    }catch(e){}
+
+    if(!session || !session.id || !session.last_seen || (now - session.last_seen) > ACTION_SESSION_TTL){
+      session = {
+        id:createActionId(),
+        last_seen:now,
+        source:explicitSource || "original",
+        campaign:explicitCampaign || ""
+      };
+    }else{
+      session.last_seen = now;
+      if(explicitSource) session.source = explicitSource;
+      if(explicitCampaign) session.campaign = explicitCampaign;
+    }
+
+    try{ localStorage.setItem(ACTION_SESSION_STORAGE_KEY, JSON.stringify(session)); }catch(e){}
+    return session;
+  }
+
+  function getActionDevice(){
+    const ua = navigator.userAgent || "";
+    if(/iPad|Tablet|Android(?!.*Mobile)/i.test(ua)) return "tablet";
+    if(/Mobi|iPhone|Android/i.test(ua)) return "mobile";
+    return "desktop";
+  }
+
+  function actionPageName(){ return "online_consult"; }
+
+  function sendActionLog(eventName, extra={}){
+    if(!ACTION_LOG_ENDPOINT) return;
+    const session = getActionSession();
+    const payload = {
+      project_key:ACTION_LOG_PROJECT_KEY,
+      client_timestamp:new Date().toISOString(),
+      session_id:session.id,
+      event:eventName,
+      page:extra.page || actionPageName(),
+      job:extra.job ?? (document.getElementById("job")?.value || ""),
+      career:extra.career ?? (document.getElementById("career")?.value || ""),
+      theme:extra.theme || "",
+      target_label:extra.target_label || "",
+      target_id:extra.target_id || "",
+      destination_url:extra.destination_url || "",
+      source:session.source || "original",
+      campaign:session.campaign || "",
+      referrer:document.referrer || "",
+      device:getActionDevice(),
+      path:location.pathname + location.search,
+      user_agent:navigator.userAgent || ""
+    };
+
+    try{
+      fetch(ACTION_LOG_ENDPOINT,{
+        method:"POST",
+        mode:"no-cors",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify(payload),
+        keepalive:true
+      });
+    }catch(e){}
+  }
+
+  document.addEventListener("click", event=>{
+    const target = event.target.closest("a,button");
+    if(!target) return;
+    const label = (target.innerText || target.textContent || "").trim().replace(/\s+/g," ").slice(0,140);
+    sendActionLog("click",{
+      target_label:label,
+      target_id:target.id || "",
+      destination_url:target.href || ""
+    });
+  }, true);
+
+
 const careersByJob = {
   "理学療法士":["新卒","中途","中途・整形外科未経験"],
   "看護師":["新卒","中途","中途・整形外科未経験","ブランクあり"],
@@ -499,6 +600,22 @@ function validateOptionalDatePair(index){
   return true;
 }
 
+
+window.addEventListener("load",()=>{
+  getActionSession();
+  sendActionLog("online_consult_view",{page:"online_consult"});
+});
+
+let formStartedLogged = false;
+function logFormStartOnce(){
+  if(formStartedLogged) return;
+  formStartedLogged = true;
+  sendActionLog("form_start",{page:"online_consult"});
+}
+
+document.addEventListener("input",logFormStartOnce,true);
+document.addEventListener("change",logFormStartOnce,true);
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -536,6 +653,8 @@ form.addEventListener("submit", async (e) => {
       body:JSON.stringify(payload)
     });
 
+    sendActionLog("form_submit",{page:"online_consult",job:job.value,career:career.value,target_label:"オンライン相談会に申し込む"});
+
     statusBox.className = "form-status show ok";
     statusBox.textContent =
       "お申し込みを受け付けました。受付完了メールをご確認ください。";
@@ -546,6 +665,7 @@ form.addEventListener("submit", async (e) => {
     otherText.disabled = true;
 
   }catch(err){
+    sendActionLog("form_error",{page:"online_consult",job:job.value,career:career.value,target_label:"オンライン相談会に申し込む"});
     statusBox.className = "form-status show error";
     statusBox.textContent =
       "送信できませんでした。時間をおいてもう一度お試しください。";

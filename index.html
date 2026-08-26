@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- BUILD: online-consult-link-v1-20260826 -->
+<!-- BUILD: behavior-log-ready-v1-20260826 -->
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -2875,6 +2875,8 @@
       .getElementById(id)
       .classList.add("active");
 
+    sendActionLog("page_view",{page:id});
+
 
     window.scrollTo({
       top:0,
@@ -2942,6 +2944,7 @@
   function selectJob(job){
 
     selectedJob = job;
+    sendActionLog("job_select",{job:selectedJob,target_label:job});
 
 
     document
@@ -2966,6 +2969,7 @@
   function selectCareer(career){
 
     selectedCareer = career;
+    sendActionLog("career_select",{job:selectedJob,career:selectedCareer,target_label:career});
 
     currentThemes =
       recruitmentContent.themeSets[
@@ -3160,6 +3164,7 @@
   function openTheme(theme){
 
     readThemes.add(theme.id);
+    sendActionLog("theme_view",{theme:theme.title,target_label:theme.title});
 
 
     document
@@ -3361,6 +3366,8 @@
 
   function openPhilosophy(){
 
+    sendActionLog("philosophy_view",{page:"philosophy",target_label:"線の医療"});
+
     const currentScreen =
       getCurrentScreen();
 
@@ -3409,6 +3416,7 @@
 
 
   function openPrinciples(){
+    sendActionLog("principles_view",{page:"principles",target_label:"のぞみ整形外科の3つの理念"});
     const currentScreen=getCurrentScreen();
     if(currentScreen!=="principles") previousScreenBeforePrinciples=currentScreen;
     const principlesPitch=document.getElementById("principles-pitch-link-wrap");
@@ -3459,29 +3467,89 @@
     ?.addEventListener("click", updateOnlineConsultLink);
 
 
-  /* ==========================================
-     CLICK TRACKING
-     Apps Script Web App URLを設定すると有効化
-     ========================================== */
-  const CLICK_LOG_ENDPOINT = "";
 
-  function trackClick(eventName, element){
-    if(!CLICK_LOG_ENDPOINT) return;
-    const payload = {
-      timestamp: new Date().toISOString(),
-      event: eventName || "click",
-      label: (element?.innerText || element?.textContent || "").trim().replace(/\s+/g," ").slice(0,120),
-      element_id: element?.id || "",
-      screen: getCurrentScreen(),
-      job: selectedJob || "",
-      career: selectedCareer || "",
-      href: element?.href || "",
-      page_url: location.href,
-      referrer: document.referrer || "",
-      user_agent: navigator.userAgent
-    };
+  
+  const BEHAVIOR_LOG_ENDPOINT = "https://script.google.com/macros/s/AKfycby-A5zOUQzkObJV64L_W1b7l4ip768JFxSgZNIlxgZ5XDJY46xgL5m73T0UDn9usUkuXA/exec";
+
+/* ==========================================
+     BEHAVIOR LOG
+     匿名行動ログ：30日保持 / source・campaign対応
+     ========================================== */
+  const ACTION_LOG_ENDPOINT = ""; // 行動ログGASのWebアプリURLを設定
+  const ACTION_LOG_PROJECT_KEY = "recruit_concierge_v1";
+  const ACTION_SESSION_STORAGE_KEY = "recruit_concierge_action_session_v1";
+  const ACTION_SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
+
+  function createActionId(){
+    if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return "sid_" + Date.now().toString(36) + Math.random().toString(36).slice(2,10);
+  }
+
+  function getActionSession(){
+    const now = Date.now();
+    const params = new URLSearchParams(location.search);
+    const explicitSource = params.get("source") || "";
+    const explicitCampaign = params.get("campaign") || "";
+    let session = null;
+
     try{
-      fetch(CLICK_LOG_ENDPOINT,{
+      session = JSON.parse(localStorage.getItem(ACTION_SESSION_STORAGE_KEY) || "null");
+    }catch(e){}
+
+    if(!session || !session.id || !session.last_seen || (now - session.last_seen) > ACTION_SESSION_TTL){
+      session = {
+        id:createActionId(),
+        last_seen:now,
+        source:explicitSource || "original",
+        campaign:explicitCampaign || ""
+      };
+    }else{
+      session.last_seen = now;
+      if(explicitSource) session.source = explicitSource;
+      if(explicitCampaign) session.campaign = explicitCampaign;
+    }
+
+    try{ localStorage.setItem(ACTION_SESSION_STORAGE_KEY, JSON.stringify(session)); }catch(e){}
+    return session;
+  }
+
+  function getActionDevice(){
+    const ua = navigator.userAgent || "";
+    if(/iPad|Tablet|Android(?!.*Mobile)/i.test(ua)) return "tablet";
+    if(/Mobi|iPhone|Android/i.test(ua)) return "mobile";
+    return "desktop";
+  }
+
+  function actionPageName(){
+    const current = document.querySelector(".screen.active");
+    return current ? current.id : (document.body?.dataset?.page || location.pathname.split("/").pop() || "page");
+  }
+
+  function sendActionLog(eventName, extra={}){
+    if(!ACTION_LOG_ENDPOINT) return;
+    const session = getActionSession();
+    const payload = {
+      project_key:ACTION_LOG_PROJECT_KEY,
+      client_timestamp:new Date().toISOString(),
+      session_id:session.id,
+      event:eventName,
+      page:extra.page || actionPageName(),
+      job:extra.job ?? (typeof selectedJob !== "undefined" ? selectedJob : ""),
+      career:extra.career ?? (typeof selectedCareer !== "undefined" ? selectedCareer : ""),
+      theme:extra.theme || "",
+      target_label:extra.target_label || "",
+      target_id:extra.target_id || "",
+      destination_url:extra.destination_url || "",
+      source:session.source || "original",
+      campaign:session.campaign || "",
+      referrer:document.referrer || "",
+      device:getActionDevice(),
+      path:location.pathname + location.search,
+      user_agent:navigator.userAgent || ""
+    };
+
+    try{
+      fetch(ACTION_LOG_ENDPOINT,{
         method:"POST",
         mode:"no-cors",
         headers:{"Content-Type":"text/plain;charset=utf-8"},
@@ -3492,10 +3560,15 @@
   }
 
   document.addEventListener("click", event=>{
-    const target=event.target.closest("button,a");
+    const target = event.target.closest("a,button");
     if(!target) return;
-    trackClick("click",target);
-  },true);
+    const label = (target.innerText || target.textContent || "").trim().replace(/\s+/g," ").slice(0,140);
+    sendActionLog("click",{
+      target_label:label,
+      target_id:target.id || "",
+      destination_url:target.href || ""
+    });
+  }, true);
 
 
   /*
@@ -3506,6 +3579,8 @@
 
   applyUIText();
   renderJobs();
+  getActionSession();
+  sendActionLog("page_view",{page:getCurrentScreen()});
 
 </script>
 
