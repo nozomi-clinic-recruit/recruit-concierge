@@ -70,7 +70,37 @@ textarea{min-height:110px;resize:vertical}
 .check input{width:18px;min-height:auto;height:18px;margin-top:2px}
 .check span{font-size:12px;line-height:1.45}
 .other-input{display:none;margin-top:9px}.other-input.visible{display:block}
-.date-list{display:grid;gap:10px}.date-row{display:grid;grid-template-columns:72px minmax(0,1fr);gap:9px;align-items:center}.date-row strong{font-size:11px;color:var(--text-dark)}
+.date-list{display:grid;gap:10px}
+.date-row{
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+}
+.date-row-title{
+  display:block;
+  margin-bottom:8px;
+  color:var(--text-dark);
+  font-size:12px;
+  font-weight:800;
+}
+.date-inputs{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:9px;
+}
+.date-field-label{
+  display:block;
+  margin-bottom:5px;
+  color:var(--text-light);
+  font-size:10px;
+  font-weight:700;
+}
+.date-inputs input,
+.date-inputs select{
+  min-height:44px;
+  font-size:15px;
+}
 .form-status{display:none;margin-top:12px;padding:11px 12px;border-radius:10px;font-size:11px}.form-status.show{display:block}.form-status.ok{background:var(--primary-soft);color:var(--primary-deep)}.form-status.error{background:var(--coral-soft);color:var(--coral)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .date-note{margin-top:8px;padding:11px 12px;border-radius:11px;background:var(--primary-soft);font-size:11px}
@@ -79,7 +109,10 @@ textarea{min-height:110px;resize:vertical}
 .consent span{font-size:11px;line-height:1.6}
 .submit{width:100%;min-height:52px;border:0;border-radius:13px;background:linear-gradient(135deg,var(--coral),#df5e73);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 6px 14px rgba(232,109,128,.22)}
 .submit-note{margin:9px 0 0;text-align:center;color:var(--text-light);font-size:10px}
-@media(max-width:360px){.check-list{grid-template-columns:1fr}.date-row{grid-template-columns:64px minmax(0,1fr)}}
+@media(max-width:360px){
+  .check-list{grid-template-columns:1fr}
+  .date-inputs{grid-template-columns:1fr}
+}
 @media(min-width:640px){
   main{padding:34px 42px 70px}
   .hero{padding:34px 32px 30px}
@@ -201,11 +234,58 @@ textarea{min-height:110px;resize:vertical}
         <div class="field">
           <div class="label-row"><label>相談希望日時</label><span class="req">必須</span></div>
           <div class="date-list">
-            <label class="date-row"><strong>第1希望</strong><input type="datetime-local" name="date1" required></label>
-            <label class="date-row"><strong>第2希望</strong><input type="datetime-local" name="date2"></label>
-            <label class="date-row"><strong>第3希望</strong><input type="datetime-local" name="date3"></label>
+            <div class="date-row">
+              <span class="date-row-title">第1希望</span>
+              <div class="date-inputs">
+                <label>
+                  <span class="date-field-label">希望日</span>
+                  <select id="date1-day" name="date1_day" required><option value="">日付を選択</option></select>
+                </label>
+                <label>
+                  <span class="date-field-label">希望開始時間</span>
+                  <select id="date1-time" name="date1_time" required>
+                    <option value="">時間を選択</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="date-row">
+              <span class="date-row-title">第2希望</span>
+              <div class="date-inputs">
+                <label>
+                  <span class="date-field-label">希望日</span>
+                  <select id="date2-day" name="date2_day"><option value="">日付を選択</option></select>
+                </label>
+                <label>
+                  <span class="date-field-label">希望開始時間</span>
+                  <select id="date2-time" name="date2_time">
+                    <option value="">時間を選択</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div class="date-row">
+              <span class="date-row-title">第3希望</span>
+              <div class="date-inputs">
+                <label>
+                  <span class="date-field-label">希望日</span>
+                  <select id="date3-day" name="date3_day"><option value="">日付を選択</option></select>
+                </label>
+                <label>
+                  <span class="date-field-label">希望開始時間</span>
+                  <select id="date3-time" name="date3_time">
+                    <option value="">時間を選択</option>
+                  </select>
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="date-note">第1〜第3希望をご入力ください。日程を確認後、Google Meetの参加URLをメールでお送りします。</div>
+          <input type="hidden" id="date1" name="date1">
+          <input type="hidden" id="date2" name="date2">
+          <input type="hidden" id="date3" name="date3">
+          <div class="date-note">表示される候補は、オンライン相談の対応可能日時のみです。日程を確認後、Google Meetの参加URLをメールでお送りします。</div>
         </div>
 
         <div class="field">
@@ -225,6 +305,256 @@ textarea{min-height:110px;resize:vertical}
     </section>
   </main>
 </div>
-\n<script>\nconst FORM_ENDPOINT = ""; // Apps Script WebアプリURLを設定\nconst careersByJob = {\n  "理学療法士":["新卒","中途","中途・整形外科未経験"],\n  "看護師":["新卒","中途","中途・整形外科未経験","ブランクあり"],\n  "医療事務":["新卒","未経験","経験あり","ブランクあり"],\n  "介護士":["中途","未経験","経験あり","ブランクあり"]\n};\nconst job = document.getElementById("job");\nconst career = document.getElementById("career");\nconst otherCheck = document.getElementById("topic-other");\nconst otherWrap = document.getElementById("topic-other-wrap");\nconst otherText = document.getElementById("topic-other-text");\nconst form = document.getElementById("consult-form");\nconst statusBox = document.getElementById("form-status");\n\nfunction renderCareers(selected=""){\n  const options = careersByJob[job.value] || ["新卒","中途","未経験","経験あり","ブランクあり","その他"];\n  career.innerHTML = '<option value="">選択してください</option>' + options.map(v=>`<option ${v===selected?'selected':''}>${v}</option>`).join("");\n}\njob.addEventListener("change",()=>renderCareers());\notherCheck.addEventListener("change",()=>{\n  otherWrap.classList.toggle("visible",otherCheck.checked);\n  if(!otherCheck.checked) otherText.value="";\n});\n\nconst params = new URLSearchParams(location.search);\nif(params.get("job")){ job.value=params.get("job"); renderCareers(params.get("career")||""); }\n\nform.addEventListener("submit",async(e)=>{\n  e.preventDefault();\n  if(!FORM_ENDPOINT){\n    statusBox.className="form-status show error";\n    statusBox.textContent="送信機能は現在準備中です。";\n    return;\n  }\n  const submit=form.querySelector("button[type=submit]");\n  submit.disabled=true;\n  submit.textContent="送信しています…";\n  statusBox.className="form-status";\n  const fd=new FormData(form);\n  const topics=fd.getAll("topic");\n  const payload=Object.fromEntries(fd.entries());\n  payload.topics=topics;\n  payload.source_url=document.referrer||"";\n  try{\n    await fetch(FORM_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});\n    statusBox.className="form-status show ok";\n    statusBox.textContent="お申し込みを受け付けました。受付完了メールをご確認ください。";\n    form.reset();\n    renderCareers();\n    otherWrap.classList.remove("visible");\n  }catch(err){\n    statusBox.className="form-status show error";\n    statusBox.textContent="送信できませんでした。時間をおいてもう一度お試しください。";\n  }finally{\n    submit.disabled=false;\n    submit.textContent="オンライン相談会に申し込む";\n  }\n});\n</script>\n
+<script src="online-consult-availability.js"></script>
+<script>
+const FORM_ENDPOINT = ""; // Apps Script WebアプリURLを設定
+
+const careersByJob = {
+  "理学療法士":["新卒","中途","中途・整形外科未経験"],
+  "看護師":["新卒","中途","中途・整形外科未経験","ブランクあり"],
+  "医療事務":["新卒","未経験","経験あり","ブランクあり"],
+  "介護士":["中途","未経験","経験あり","ブランクあり"]
+};
+
+const job = document.getElementById("job");
+const career = document.getElementById("career");
+const otherCheck = document.getElementById("topic-other");
+const otherWrap = document.getElementById("topic-other-wrap");
+const otherText = document.getElementById("topic-other-text");
+const form = document.getElementById("consult-form");
+const statusBox = document.getElementById("form-status");
+
+function renderCareers(selected = ""){
+  const options =
+    careersByJob[job.value] ||
+    ["新卒","中途","未経験","経験あり","ブランクあり","その他"];
+
+  career.innerHTML =
+    '<option value="">選択してください</option>' +
+    options
+      .map(v => `<option value="${v}" ${v === selected ? "selected" : ""}>${v}</option>`)
+      .join("");
+}
+
+job.addEventListener("change", () => renderCareers());
+
+/* 「その他」にチェックすると自由記入欄を展開 */
+otherCheck.addEventListener("change", () => {
+  const isOpen = otherCheck.checked;
+  otherWrap.classList.toggle("visible", isOpen);
+  otherText.disabled = !isOpen;
+
+  if(!isOpen){
+    otherText.value = "";
+  }else{
+    setTimeout(() => otherText.focus(), 0);
+  }
+});
+otherText.disabled = true;
+
+/* 対応可能日時を別マスターから生成 */
+const availability = window.ONLINE_CONSULT_AVAILABILITY || {};
+
+function pad2(v){ return String(v).padStart(2,"0"); }
+function toDateKey(date){
+  return `${date.getFullYear()}-${pad2(date.getMonth()+1)}-${pad2(date.getDate())}`;
+}
+function formatDateLabel(date){
+  const weekdays=["日","月","火","水","木","金","土"];
+  return `${date.getMonth()+1}月${date.getDate()}日（${weekdays[date.getDay()]}）`;
+}
+function toMinutes(value){
+  const [h,m]=String(value).split(":").map(Number);
+  return h*60+m;
+}
+function toTime(total){
+  return `${pad2(Math.floor(total/60))}:${pad2(total%60)}`;
+}
+function getDayRule(date){
+  const key=toDateKey(date);
+  if((availability.closedDates || []).includes(key)) return null;
+
+  const override=(availability.dateOverrides || {})[key];
+  if(override && override.closed === true) return null;
+  if(override){
+    return {
+      start: override.start || availability.defaultStartTime || "10:00",
+      lastStart: override.lastStart || availability.defaultLastStartTime || "19:00"
+    };
+  }
+
+  const weekly=(availability.weeklyAvailability || {})[date.getDay()];
+  if(!weekly) return null;
+
+  return {
+    start: weekly.start || availability.defaultStartTime || "10:00",
+    lastStart: weekly.lastStart || availability.defaultLastStartTime || "19:00"
+  };
+}
+function getAvailableDates(){
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const daysAhead=Number(availability.daysAhead || 60);
+  const minLeadDays=Number(availability.minLeadDays || 1);
+  const result=[];
+
+  for(let offset=minLeadDays; offset<=daysAhead; offset++){
+    const date=new Date(today);
+    date.setDate(today.getDate()+offset);
+    if(getDayRule(date)) result.push(date);
+  }
+  return result;
+}
+function fillDateOptions(select){
+  select.innerHTML='<option value="">日付を選択</option>';
+  getAvailableDates().forEach(date=>{
+    const option=document.createElement("option");
+    option.value=toDateKey(date);
+    option.textContent=formatDateLabel(date);
+    select.appendChild(option);
+  });
+}
+function fillTimeOptionsForDate(daySelect,timeSelect){
+  timeSelect.innerHTML='<option value="">時間を選択</option>';
+  if(!daySelect.value){
+    timeSelect.disabled=true;
+    return;
+  }
+
+  const [y,m,d]=daySelect.value.split("-").map(Number);
+  const rule=getDayRule(new Date(y,m-1,d));
+  if(!rule){
+    timeSelect.disabled=true;
+    return;
+  }
+
+  const interval=Number(availability.intervalMinutes || 30);
+  for(let t=toMinutes(rule.start); t<=toMinutes(rule.lastStart); t+=interval){
+    const value=toTime(t);
+    const option=document.createElement("option");
+    option.value=value;
+    option.textContent=value;
+    timeSelect.appendChild(option);
+  }
+  timeSelect.disabled=false;
+}
+function initializeAvailabilitySelectors(){
+  [1,2,3].forEach(index=>{
+    const day=document.getElementById(`date${index}-day`);
+    const time=document.getElementById(`date${index}-time`);
+    fillDateOptions(day);
+    fillTimeOptionsForDate(day,time);
+    day.addEventListener("change",()=>{
+      time.value="";
+      fillTimeOptionsForDate(day,time);
+    });
+  });
+}
+initializeAvailabilitySelectors();
+
+/* コンシェルジュから渡された職種・キャリアを自動入力 */
+const params = new URLSearchParams(location.search);
+
+if(params.get("job")){
+  job.value = params.get("job");
+  renderCareers(params.get("career") || "");
+}
+
+/* 日付と開始時間を、既存メール送信処理用の date1〜date3 にまとめる */
+function combinePreferredDate(index){
+  const day = document.getElementById(`date${index}-day`).value;
+  const time = document.getElementById(`date${index}-time`).value;
+
+  if(!day && !time){
+    return "";
+  }
+
+  return `${day} ${time}`.trim();
+}
+
+/* 第2・第3希望は、日付だけ／時間だけの入力を防ぐ */
+function validateOptionalDatePair(index){
+  const day = document.getElementById(`date${index}-day`);
+  const time = document.getElementById(`date${index}-time`);
+
+  const oneSideOnly = Boolean(day.value) !== Boolean(time.value);
+
+  if(oneSideOnly){
+    const message = `第${index}希望は「希望日」と「希望開始時間」の両方を入力してください。`;
+
+    if(!day.value){
+      day.setCustomValidity(message);
+      time.setCustomValidity("");
+      day.reportValidity();
+    }else{
+      time.setCustomValidity(message);
+      day.setCustomValidity("");
+      time.reportValidity();
+    }
+    return false;
+  }
+
+  day.setCustomValidity("");
+  time.setCustomValidity("");
+  return true;
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  if(!validateOptionalDatePair(2) || !validateOptionalDatePair(3)){
+    return;
+  }
+
+  document.getElementById("date1").value = combinePreferredDate(1);
+  document.getElementById("date2").value = combinePreferredDate(2);
+  document.getElementById("date3").value = combinePreferredDate(3);
+
+  if(!FORM_ENDPOINT){
+    statusBox.className = "form-status show error";
+    statusBox.textContent = "送信機能は現在準備中です。";
+    return;
+  }
+
+  const submit = form.querySelector("button[type=submit]");
+  submit.disabled = true;
+  submit.textContent = "送信しています…";
+  statusBox.className = "form-status";
+
+  const fd = new FormData(form);
+  const topics = fd.getAll("topic");
+  const payload = Object.fromEntries(fd.entries());
+
+  payload.topics = topics;
+  payload.source_url = document.referrer || "";
+
+  try{
+    await fetch(FORM_ENDPOINT, {
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(payload)
+    });
+
+    statusBox.className = "form-status show ok";
+    statusBox.textContent =
+      "お申し込みを受け付けました。受付完了メールをご確認ください。";
+
+    form.reset();
+    renderCareers();
+    otherWrap.classList.remove("visible");
+    otherText.disabled = true;
+
+  }catch(err){
+    statusBox.className = "form-status show error";
+    statusBox.textContent =
+      "送信できませんでした。時間をおいてもう一度お試しください。";
+
+  }finally{
+    submit.disabled = false;
+    submit.textContent = "オンライン相談会に申し込む";
+  }
+});
+</script>
 </body>
 </html>
