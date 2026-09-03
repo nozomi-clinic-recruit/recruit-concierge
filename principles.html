@@ -397,13 +397,26 @@ button,a{font:inherit}
   </main>
 
   <div class="cta">
-    <p class="cta-message">相談、見学、応募に関してはこちらから↓</p>
+    <p id="cta-message" class="cta-message">相談、見学、応募に関してはこちらから↓</p>
     <div class="cta-inner">
-      <a href="mailto:staff-recruit@nozomi-clinic.jp">メールで相談する</a>
-      <a href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">見学する</a>
-      <a href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">応募する</a>
+      <a id="cta-mail-label" href="mailto:staff-recruit@nozomi-clinic.jp">メールで相談する</a>
+      <a id="cta-visit-label" href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">見学する</a>
+      <a id="cta-apply-label" href="https://www.nozomi-clinic.jp/recruit/contact" target="_blank" rel="noopener noreferrer">応募する</a>
     </div>
   </div>
 </div>
+<script src="content-data.js"></script>
+<script>
+const uiText=Object.assign({
+  cta_message:"相談、見学、応募に関してはこちらから↓",
+  cta_mail_label:"メールで相談",
+  cta_visit_label:"見学する",
+  cta_apply_label:"応募する"
+},window.RECRUIT_UI_TEXT || {});
+document.getElementById("cta-message").textContent=uiText.cta_message;
+document.getElementById("cta-mail-label").textContent=uiText.cta_mail_label;
+document.getElementById("cta-visit-label").textContent=uiText.cta_visit_label;
+document.getElementById("cta-apply-label").textContent=uiText.cta_apply_label;
+</script>
 </body>
 </html>

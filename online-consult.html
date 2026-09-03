@@ -139,10 +139,10 @@ textarea{min-height:110px;resize:vertical}
     <a class="back" href="./index.html" onclick="if(window.opener){event.preventDefault();window.close();}">← この画面を閉じる</a>
 
     <section class="hero">
-      <div class="hero-badge">おすすめ｜応募前でもOK</div>
-      <h1>まずは<span>オンラインで</span><br>話してみませんか？</h1>
+      <div id="online-hero-badge" class="hero-badge">おすすめ｜応募前でもOK</div>
+      <h1 id="online-hero-title">まずは<span>オンラインで</span><br>話してみませんか？</h1>
       <p class="hero-lead">「実際にはどんな働き方なんだろう？」「職場の雰囲気や教育について、もう少し詳しく聞いてみたい」「自分の経験でも応募できるのか相談したい」——そんな疑問や不安を、採用担当者やスタッフに気軽に相談できるオンライン相談会です。</p>
-      <div class="hero-note">選考ではありません。履歴書・職務経歴書・志望動機などの準備も必要ありません。まだ応募するか決めていない段階でもご利用いただけます。</div>
+      <div id="online-hero-note" class="hero-note">選考ではありません。履歴書・職務経歴書・志望動機などの準備も必要ありません。まだ応募するか決めていない段階でもご利用いただけます。</div>
 
       <div class="summary-grid">
         <div class="summary-card"><strong>所要時間</strong><span>30分程度</span></div>
@@ -167,8 +167,8 @@ textarea{min-height:110px;resize:vertical}
     <section class="form-wrap">
       <div class="form-head">
         <p class="section-kicker">APPLICATION FORM</p>
-        <h2>オンライン相談会 申込フォーム</h2>
-        <p>必要事項をご入力ください。内容を確認後、採用担当より日程についてご連絡します。</p>
+        <h2 id="online-form-title">オンライン相談会 申込フォーム</h2>
+        <p id="online-form-note">必要事項をご入力ください。内容を確認後、採用担当より日程についてご連絡します。</p>
       </div>
 
       <form id="consult-form">
@@ -285,7 +285,7 @@ textarea{min-height:110px;resize:vertical}
           <input type="hidden" id="date1" name="date1">
           <input type="hidden" id="date2" name="date2">
           <input type="hidden" id="date3" name="date3">
-          <div class="date-note">表示される候補は、オンライン相談の対応可能日時のみです。日程を確認後、Google Meetの参加URLをメールでお送りします。</div>
+          <div id="online-date-note" class="date-note">表示される候補は、オンライン相談の対応可能日時のみです。日程を確認後、Google Meetの参加URLをメールでお送りします。</div>
         </div>
 
         <div class="field">
@@ -295,18 +295,58 @@ textarea{min-height:110px;resize:vertical}
 
         <label class="consent">
           <input type="checkbox" required>
-          <span>個人情報の取り扱いに同意します。入力いただいた情報は、採用・相談対応の目的で使用します。</span>
+          <span id="online-consent">個人情報の取り扱いに同意します。入力いただいた情報は、採用・相談対応の目的で使用します。</span>
         </label>
 
-        <button class="submit" type="submit">オンライン相談会に申し込む</button>
-        <p class="submit-note">送信後、受付完了メールを自動送信します。</p>
+        <button id="online-submit" class="submit" type="submit">オンライン相談会に申し込む</button>
+        <p id="online-submit-note" class="submit-note">送信後、受付完了メールを自動送信します。</p>
         <div id="form-status" class="form-status" aria-live="polite"></div>
       </form>
     </section>
   </main>
 </div>
+<script src="content-data.js"></script>
 <script src="online-consult-availability.js"></script>
 <script>
+const uiText = Object.assign({
+  online_hero_badge:"おすすめ｜応募前でもOK",
+  online_hero_title:"まずはオンラインで\n話してみませんか？",
+  online_hero_note:"選考ではありません。履歴書・職務経歴書・志望動機などの準備も必要ありません。まだ応募するか決めていない段階でもご利用いただけます。",
+  online_form_title:"オンライン相談会 申込フォーム",
+  online_form_note:"必要事項をご入力ください。内容を確認後、採用担当より日程についてご連絡します。",
+  online_date_note:"表示される候補は、オンライン相談の対応可能日時のみです。日程を確認後、Google Meetの参加URLをメールでお送りします。",
+  online_consent:"個人情報の取り扱いに同意します。入力いただいた情報は、採用・相談対応の目的で使用します。",
+  online_submit:"オンライン相談会に申し込む",
+  online_submit_note:"送信後、受付完了メールを自動送信します。"
+}, window.RECRUIT_UI_TEXT || {});
+
+function setOnlineHeroTitle(value){
+  const title=document.getElementById("online-hero-title");
+  title.replaceChildren();
+  String(value ?? "").split(/(オンラインで|\r?\n)/).filter(Boolean).forEach(part=>{
+    if(/^\r?\n$/.test(part)) title.append(document.createElement("br"));
+    else if(part === "オンラインで"){
+      const emphasis=document.createElement("span");
+      emphasis.textContent=part;
+      title.append(emphasis);
+    }else title.append(document.createTextNode(part));
+  });
+}
+
+function applyOnlineUIText(){
+  document.getElementById("online-hero-badge").textContent=uiText.online_hero_badge;
+  setOnlineHeroTitle(uiText.online_hero_title);
+  document.getElementById("online-hero-note").textContent=uiText.online_hero_note;
+  document.getElementById("online-form-title").textContent=uiText.online_form_title;
+  document.getElementById("online-form-note").textContent=uiText.online_form_note;
+  document.getElementById("online-date-note").textContent=uiText.online_date_note;
+  document.getElementById("online-consent").textContent=uiText.online_consent;
+  document.getElementById("online-submit").textContent=uiText.online_submit;
+  document.getElementById("online-submit-note").textContent=uiText.online_submit_note;
+}
+
+applyOnlineUIText();
+
 const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwymcRgYPo3zpUwj_5moWkJL9wpqLy_CmI9G9cuqpall00gAkXAUOJhdm29FVoUUKNVDw/exec"; // Apps Script WebアプリURL
 
 
@@ -661,7 +701,7 @@ form.addEventListener("submit", async (e) => {
       body:JSON.stringify(payload)
     });
 
-    sendActionLog("form_submit",{page:"online_consult",job:job.value,career:career.value,target_label:"オンライン相談会に申し込む"});
+    sendActionLog("form_submit",{page:"online_consult",job:job.value,career:career.value,target_label:uiText.online_submit});
 
     statusBox.className = "form-status show ok";
     statusBox.textContent =
@@ -673,14 +713,14 @@ form.addEventListener("submit", async (e) => {
     otherText.disabled = true;
 
   }catch(err){
-    sendActionLog("form_error",{page:"online_consult",job:job.value,career:career.value,target_label:"オンライン相談会に申し込む"});
+    sendActionLog("form_error",{page:"online_consult",job:job.value,career:career.value,target_label:uiText.online_submit});
     statusBox.className = "form-status show error";
     statusBox.textContent =
       "送信できませんでした。時間をおいてもう一度お試しください。";
 
   }finally{
     submit.disabled = false;
-    submit.textContent = "オンライン相談会に申し込む";
+    submit.textContent = uiText.online_submit;
   }
 });
 </script>

@@ -1239,7 +1239,7 @@
     }
 
     .cta-online::before{
-      content:"おすすめ!";
+      content:var(--cta-online-badge,"おすすめ!");
       position:absolute;
       top:-9px;
       right:9px;
@@ -1561,7 +1561,7 @@
       >
         <span class="header-philosophy-text">
           <span class="header-philosophy-label">PHILOSOPHY</span>
-          <span class="header-philosophy-title">のぞみ整形外科の3つの理念</span>
+          <span id="philosophy-header-principles" class="header-philosophy-title">のぞみ整形外科の3つの理念</span>
         </span>
         <span class="header-philosophy-arrow" aria-hidden="true">→</span>
       </button>
@@ -1573,7 +1573,7 @@
       >
         <span class="header-philosophy-text">
           <span class="header-philosophy-label">PHILOSOPHY</span>
-          <span class="header-philosophy-title">のぞみ整形外科が目指す医療</span>
+          <span id="philosophy-header-care" class="header-philosophy-title">のぞみ整形外科が目指す医療</span>
         </span>
         <span class="header-philosophy-arrow" aria-hidden="true">→</span>
       </button>
@@ -1916,7 +1916,7 @@
 
         <div id="pitch-link-wrap" class="pitch-link-wrap">
           <a
-            class="pitch-link"
+            class="pitch-link js-pitch-link-label"
             href="https://www.nozomi-clinic.jp/recruit/archives/6782"
             target="_blank"
             rel="noopener noreferrer"
@@ -2022,7 +2022,7 @@
               <p>この3つの理念を大切にしながら、患者さん・スタッフ・地域とともに歩み続けます。</p>
               <button class="primary-button philosophy-return-button" type="button" onclick="returnToThemesFromPrinciples()">テーマ選択画面に戻る</button>
               <div id="principles-pitch-link-wrap" class="pitch-link-wrap">
-                <a class="pitch-link" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">採用ピッチ資料本編はこちら ↗</a>
+                <a class="pitch-link js-pitch-link-label" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">採用ピッチ資料本編はこちら ↗</a>
               </div>
             </div>
           </div>
@@ -2062,8 +2062,8 @@
         </svg>
       </span>
       <span class="cta-text">
-        <span class="cta-label">メールで相談</span>
-        <span class="cta-sub">気軽に質問する</span>
+        <span id="cta-mail-label" class="cta-label">メールで相談</span>
+        <span id="cta-mail-sub" class="cta-sub">気軽に質問する</span>
       </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
@@ -2079,8 +2079,8 @@
         </svg>
       </span>
       <span class="cta-text">
-        <span class="cta-label">オンライン相談</span>
-        <span class="cta-sub">スタッフと話す</span>
+        <span id="cta-online-label" class="cta-label">オンライン相談</span>
+        <span id="cta-online-sub" class="cta-sub">スタッフと話す</span>
       </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
@@ -2094,8 +2094,8 @@
         </svg>
       </span>
       <span class="cta-text">
-        <span class="cta-label">見学する</span>
-        <span class="cta-sub">職場を見てみる</span>
+        <span id="cta-visit-label" class="cta-label">見学する</span>
+        <span id="cta-visit-sub" class="cta-sub">職場を見てみる</span>
       </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
@@ -2110,8 +2110,8 @@
         </svg>
       </span>
       <span class="cta-text">
-        <span class="cta-label">応募する</span>
-        <span class="cta-sub">エントリーする</span>
+        <span id="cta-apply-label" class="cta-label">応募する</span>
+        <span id="cta-apply-sub" class="cta-sub">エントリーする</span>
       </span>
       <span class="cta-arrow" aria-hidden="true">›</span>
     </a>
@@ -2129,99 +2129,44 @@
 <script src="content-data.js"></script>
 <script>
 
-  /*
-    ==========================================
-    06_UIテキストマスター連携予定
-    現在はUI確認用の仮マスター
-    ==========================================
-  */
-
-  const uiText = {
-
-    opening_title:
-      'あなたの「知りたい」から、<br>職場を少しずつ知ってください。',
-
-    opening_text:
-      '仕事内容、教育環境、働き方、職場の雰囲気。<br>求職者の皆さまからよくいただく質問を、気になるテーマから自由に見ることができます。',
-
-    opening_button:
-      '採用コンシェルジュをはじめる',
-
-
-    job_back:
-      '← 最初に戻る',
-
-    job_title:
-      '希望する職種を<br>選んでください',
-
-    job_lead:
-      '現在検討している職種を選択してください。',
-
-
-    career_back:
-      '← 職種選択へ戻る',
-
-    career_title_default:
-      'キャリアを選んでください',
-
-    career_lead:
-      'あなたに最も近いものを選択してください。',
-
-
-    theme_back:
-      '← キャリア選択へ戻る',
-
-    theme_title:
-      '何について<br>知りたいですか？',
-
-    theme_lead:
-      '順番はありません。気になるテーマから自由にご覧ください。',
-
-    progress_label:
-      '閲覧状況',
-
-
-    answer_back:
-      '← テーマ一覧へ戻る',
-
-    answer_more_button:
-      '他のテーマも見る',
-
-
-    /*
-      Philosophy関連も将来マスター連携
-    */
-
-    philosophy_link_title:
-      'のぞみ整形外科が目指す医療',
-
-    philosophy_back:
-      '← 前の画面へ戻る',
-
-    philosophy_title:
-      'のぞみ整形外科が<br>目指す医療',
-
-    philosophy_intro:
-      '目の前の症状だけでなく、その人のこれからの生活まで考える。私たちが大切にしている医療の姿勢です。',
-
-
-    /*
-      CTA
-    */
-
-    cta_message:
-      '相談、見学、応募に関してはこちらから↓',
-
-    cta_consult:
-      'メールで相談',
-
-    cta_visit:
-      '見学',
-
-    cta_apply:
-      '応募'
-
-  };
+  /* 生成データが読めない場合も画面を壊さないため、現行文言を予備値として保持します。 */
+  const uiText = Object.assign({
+    opening_title:'あなたの「知りたい」から、\n職場を少しずつ知ってください。',
+    opening_text:'仕事内容、教育環境、働き方、職場の雰囲気。\n求職者の皆さまからよくいただく質問を、気になるテーマから自由に見ることができます。',
+    opening_button:'採用コンシェルジュをはじめる',
+    job_back:'← 最初に戻る',
+    job_title:'希望する職種を\n選んでください',
+    job_lead:'現在検討している職種を選択してください。',
+    career_back:'← 職種選択へ戻る',
+    career_title_default:'キャリアを選んでください',
+    career_lead:'あなたに最も近いものを選択してください。',
+    theme_back:'← キャリア選択へ戻る',
+    theme_title:'何について\n知りたいですか？',
+    theme_lead:'順番はありません。気になるテーマから自由にご覧ください。',
+    progress_label:'閲覧状況',
+    answer_back:'← テーマ一覧へ戻る',
+    answer_more_button:'他のテーマも見る',
+    philosophy_header_principles:'のぞみ整形外科の3つの理念',
+    philosophy_header_care:'のぞみ整形外科が目指す医療',
+    philosophy_back:'← 前の画面へ戻る',
+    philosophy_title:'のぞみ整形外科が\n目指す医療',
+    philosophy_intro:'目の前の症状だけでなく、その人のこれからの生活まで考える。私たちが大切にしている医療の姿勢です。',
+    cta_message:'相談、見学、応募に関してはこちらから↓',
+    cta_mail_label:'メールで相談',
+    cta_mail_sub:'気軽に質問する',
+    cta_online_label:'オンライン相談',
+    cta_online_sub:'スタッフと話す',
+    cta_online_badge:'おすすめ!',
+    cta_visit_label:'見学する',
+    cta_visit_sub:'職場を見てみる',
+    cta_apply_label:'応募する',
+    cta_apply_sub:'エントリーする',
+    info_panel_title:'もう少し詳しく知る',
+    info_panel_note:'外部サイトは新しいタブで開きます。この案内画面はそのまま残ります。',
+    related_panel_title:'このテーマに関連する情報',
+    related_panel_note:'より詳しい情報を、のぞみ整形外科の公式サイトで確認できます。',
+    pitch_link_label:'採用ピッチ資料本編はこちら ↗'
+  }, window.RECRUIT_UI_TEXT || {});
 
 
   /*
@@ -2299,7 +2244,7 @@
     </button>
 
     <div id="philosophy-pitch-link-wrap" class="pitch-link-wrap">
-      <a class="pitch-link" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">
+      <a class="pitch-link js-pitch-link-label" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">
         採用ピッチ資料本編はこちら ↗
       </a>
     </div>
@@ -2719,18 +2664,21 @@
     ==========================================
   */
 
+  function setMultilineText(element,value){
+    if(!element) return;
+    element.replaceChildren();
+    String(value ?? "").split(/\r?\n/).forEach((line,index)=>{
+      if(index) element.append(document.createElement("br"));
+      element.append(document.createTextNode(line));
+    });
+  }
+
   function applyUIText(){
 
-    document
-      .getElementById("opening-title")
-      .innerHTML =
-      uiText.opening_title;
+    setMultilineText(document.getElementById("opening-title"),uiText.opening_title);
 
 
-    document
-      .getElementById("opening-text")
-      .innerHTML =
-      uiText.opening_text;
+    setMultilineText(document.getElementById("opening-text"),uiText.opening_text);
 
 
     document
@@ -2745,10 +2693,7 @@
       uiText.job_back;
 
 
-    document
-      .getElementById("job-title")
-      .innerHTML =
-      uiText.job_title;
+    setMultilineText(document.getElementById("job-title"),uiText.job_title);
 
 
     document
@@ -2781,10 +2726,7 @@
       uiText.theme_back;
 
 
-    document
-      .getElementById("theme-title")
-      .innerHTML =
-      uiText.theme_title;
+    setMultilineText(document.getElementById("theme-title"),uiText.theme_title);
 
 
     document
@@ -2817,10 +2759,7 @@
       uiText.philosophy_back;
 
 
-    document
-      .getElementById("philosophy-title")
-      .innerHTML =
-      uiText.philosophy_title;
+    setMultilineText(document.getElementById("philosophy-title"),uiText.philosophy_title);
 
 
     document
@@ -2839,6 +2778,21 @@
       .getElementById("cta-message")
       .textContent =
       uiText.cta_message;
+
+    document.getElementById("philosophy-header-principles").textContent=uiText.philosophy_header_principles;
+    document.getElementById("philosophy-header-care").textContent=uiText.philosophy_header_care;
+    document.getElementById("cta-mail-label").textContent=uiText.cta_mail_label;
+    document.getElementById("cta-mail-sub").textContent=uiText.cta_mail_sub;
+    document.getElementById("cta-online-label").textContent=uiText.cta_online_label;
+    document.getElementById("cta-online-sub").textContent=uiText.cta_online_sub;
+    document.getElementById("cta-visit-label").textContent=uiText.cta_visit_label;
+    document.getElementById("cta-visit-sub").textContent=uiText.cta_visit_sub;
+    document.getElementById("cta-apply-label").textContent=uiText.cta_apply_label;
+    document.getElementById("cta-apply-sub").textContent=uiText.cta_apply_sub;
+    document.getElementById("cta-online").style.setProperty("--cta-online-badge",JSON.stringify(uiText.cta_online_badge));
+    document.querySelectorAll(".js-pitch-link-label").forEach(link=>{
+      link.textContent=uiText.pitch_link_label;
+    });
 
 
     const visitLink=document.getElementById("cta-visit");
@@ -3251,8 +3205,8 @@
   function renderThemesInformationLinks(){
     const container=document.getElementById("themes-info-links");
     container.innerHTML=informationPanelMarkup(
-      "もう少し詳しく知る",
-      "外部サイトは新しいタブで開きます。この案内画面はそのまま残ります。",
+      uiText.info_panel_title,
+      uiText.info_panel_note,
       uniqueInformationLinks([
         informationLinks.requirements,
         staffInformationLink(),
@@ -3283,8 +3237,8 @@
     }
 
     container.innerHTML=informationPanelMarkup(
-      "このテーマに関連する情報",
-      "より詳しい情報を、のぞみ整形外科の公式サイトで確認できます。",
+      uiText.related_panel_title,
+      uiText.related_panel_note,
       uniqueInformationLinks(links)
     );
   }
