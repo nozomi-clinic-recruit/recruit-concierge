@@ -2801,7 +2801,7 @@
     visitLink.rel="noopener noreferrer";
 
     const applyLink=document.getElementById("cta-apply");
-    applyLink.href="https://www.nozomi-clinic.jp/recruit/contact";
+    applyLink.href="https://www.nozomi-clinic.jp/recruit/entry";
     applyLink.target="_blank";
     applyLink.rel="noopener noreferrer";
 
@@ -2923,6 +2923,7 @@
   function selectCareer(career){
 
     selectedCareer = career;
+    updateApplyLink();
     sendActionLog("career_select",{job:selectedJob,career:selectedCareer,target_label:career});
 
     currentThemes =
@@ -3388,6 +3389,24 @@
   }
 
 
+
+
+  /*
+    ==========================================
+    APPLY CTA
+    全職種共通：新卒 / 中途系で応募先を分岐
+    ==========================================
+  */
+
+  function updateApplyLink(){
+    const link = document.getElementById("cta-apply");
+    if(!link) return;
+
+    link.href =
+      selectedCareer === "新卒"
+        ? "https://www.nozomi-clinic.jp/recruit/entry/freshman"
+        : "https://www.nozomi-clinic.jp/recruit/entry";
+  }
 
 
   /*
