@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>理学療法士 新卒｜採用コンシェルジュ｜のぞみ整形外科</title>
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+    #recruit-frame{display:block;width:100%;height:100%;border:0}
+    #fallback{display:none;padding:24px;font-family:-apple-system,BlinkMacSystemFont,"Yu Gothic",Meiryo,sans-serif;line-height:1.8}
+  </style>
+</head>
+<body>
+  <iframe id="recruit-frame" title="理学療法士 新卒 採用コンシェルジュ"></iframe>
+
+  <div id="fallback">
+    <p>採用コンシェルジュを開いています。</p>
+    <p><a id="fallback-link" href="./index.html">表示されない場合はこちら</a></p>
+  </div>
+
+  <script>
+    const frame = document.getElementById('recruit-frame');
+    const fallback = document.getElementById('fallback');
+    const fallbackLink = document.getElementById('fallback-link');
+
+    // 外側のURLについた source / campaign 等を index.html にそのまま引き継ぐ
+    const query = window.location.search || '';
+    const targetUrl = './index.html' + query;
+
+    frame.src = targetUrl;
+    fallbackLink.href = targetUrl;
+
+    frame.addEventListener('load', () => {
+      try {
+        const app = frame.contentWindow;
+
+        if (
+          typeof app.selectJob === 'function' &&
+          typeof app.selectCareer === 'function'
+        ) {
+          app.selectJob('理学療法士');
+          app.selectCareer('新卒');
+        } else {
+          throw new Error('selection functions are not available');
+        }
+      } catch (error) {
+        frame.style.display = 'none';
+        fallback.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
