@@ -361,6 +361,29 @@ const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwymcRgYPo3zpUwj_
   const ACTION_LOG_PROJECT_KEY = "recruit_concierge_v1";
   const ACTION_SESSION_STORAGE_KEY = "recruit_concierge_action_session_v1";
   const ACTION_SESSION_TTL = 30 * 24 * 60 * 60 * 1000;
+  const ACTION_INTERNAL_STORAGE_KEY = "recruit_concierge_internal_v1";
+
+  function updateInternalModeFromUrl(){
+    const params = new URLSearchParams(location.search);
+    const internalParam = params.get("internal");
+
+    try{
+      if(internalParam === "1"){
+        localStorage.setItem(ACTION_INTERNAL_STORAGE_KEY, "1");
+      }else if(internalParam === "0"){
+        localStorage.removeItem(ACTION_INTERNAL_STORAGE_KEY);
+      }
+    }catch(e){}
+  }
+
+  function isInternalAccess(){
+    updateInternalModeFromUrl();
+    try{
+      return localStorage.getItem(ACTION_INTERNAL_STORAGE_KEY) === "1";
+    }catch(e){
+      return false;
+    }
+  }
 
   function createActionId(){
     if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
@@ -432,7 +455,8 @@ const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbwymcRgYPo3zpUwj_
       referrer:document.referrer || "",
       device:getActionDevice(),
       path:location.pathname + location.search,
-      user_agent:navigator.userAgent || ""
+      user_agent:navigator.userAgent || "",
+      is_internal:isInternalAccess()
     };
 
     try{
