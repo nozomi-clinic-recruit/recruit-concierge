@@ -511,20 +511,84 @@
     .answer-body h2{
       position:relative;
       margin:38px 0 14px;
-      padding-top:12px;
+      padding:8px 12px 8px 16px;
       color:var(--text-dark);
       font-size:19px;
       line-height:1.5;
+      background:linear-gradient(90deg,#edf9f7 0%,#f7fcfb 100%);
+      border-left:4px solid var(--primary);
     }
 
     .answer-body h2::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      width:42px;
-      height:2px;
-      background:var(--primary);
+      content:none;
+    }
+
+    .theme-section-nav{
+      margin:0 0 28px;
+      padding:16px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#f2fbf9 0%,#e6f6f3 100%);
+    }
+
+    .theme-section-nav-title{
+      margin:0 0 10px;
+      color:var(--text-dark);
+      font-size:14px;
+      font-weight:700;
+      line-height:1.4;
+    }
+
+    .theme-section-nav-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:8px;
+    }
+
+    .theme-section-nav a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      min-width:0;
+      padding:9px 11px;
+      border:1px solid rgba(69,181,170,.18);
+      border-radius:999px;
+      background:#fff;
+      color:var(--text-dark);
+      text-decoration:none;
+      font-size:12px;
+      font-weight:700;
+      line-height:1.35;
+      box-shadow:0 2px 8px rgba(56,77,75,.04);
+    }
+
+    .theme-section-nav a span:first-child{
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .theme-section-nav a span:last-child{
+      flex:0 0 auto;
+      color:var(--primary-deep);
+      font-size:15px;
+      line-height:1;
+    }
+
+    .theme-content-section{
+      scroll-margin-top:145px;
+    }
+
+    @media (max-width:420px){
+      .theme-section-nav{
+        padding:14px;
+      }
+
+      .theme-section-nav a{
+        padding:8px 10px;
+        font-size:11px;
+      }
     }
 
     .answer-body p{
@@ -3327,11 +3391,39 @@
     const lead=theme.lead
       ? `<div class="answer-box">${renderSimpleMarkdown(theme.lead)}</div>`
       : "";
-    const sections=(theme.sections || []).map(section=>`
-      <h2>${escapeHtml(section.title)}</h2>
-      ${renderSimpleMarkdown(section.body)}
-    `).join("");
-    return lead + sections;
+
+    const sections=theme.sections || [];
+
+    const nav=sections.length
+      ? `
+        <nav class="theme-section-nav" aria-label="このページでわかること">
+          <p class="theme-section-nav-title">このページでわかること</p>
+          <div class="theme-section-nav-grid">
+            ${sections.map((section,index)=>{
+              const sectionId=`theme-section-${theme.id || "theme"}-${index+1}`.replace(/[^a-zA-Z0-9_-]/g,"-");
+              return `
+                <a href="#${sectionId}">
+                  <span>${escapeHtml(section.title)}</span>
+                  <span aria-hidden="true">›</span>
+                </a>
+              `;
+            }).join("")}
+          </div>
+        </nav>
+      `
+      : "";
+
+    const sectionMarkup=sections.map((section,index)=>{
+      const sectionId=`theme-section-${theme.id || "theme"}-${index+1}`.replace(/[^a-zA-Z0-9_-]/g,"-");
+      return `
+        <section id="${sectionId}" class="theme-content-section">
+          <h2>${escapeHtml(section.title)}</h2>
+          ${renderSimpleMarkdown(section.body)}
+        </section>
+      `;
+    }).join("");
+
+    return lead + nav + sectionMarkup;
   }
 
   function renderAnswerGallery(theme){
