@@ -252,32 +252,31 @@
     .opening-layout{
       width:100%;
       display:grid;
-      grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);
+      grid-template-columns:minmax(0,1.08fr) minmax(300px,.92fr);
       gap:34px;
       align-items:center;
     }
 
     .opening-copy{
       min-width:0;
-      padding:16px 0 18px;
     }
 
-    .opening-title{
-      margin:0;
+    .opening-kicker{
+      margin:0 0 18px;
       color:var(--text-dark);
-      font-size:28px;
-      line-height:1.55;
-      font-weight:700;
+      font-size:20px;
+      line-height:1.6;
+      font-weight:600;
       letter-spacing:.01em;
     }
 
-    .opening-message{
-      margin:22px 0 20px;
-      color:var(--text-dark);
-      font-size:24px;
-      line-height:1.65;
+    .opening-maincopy{
+      margin:0 0 22px;
+      color:var(--primary-dark);
+      font-size:34px;
+      line-height:1.48;
       font-weight:800;
-      letter-spacing:.01em;
+      letter-spacing:.005em;
     }
 
     .opening-text{
@@ -287,29 +286,32 @@
       line-height:1.95;
     }
 
+    .opening-text strong{
+      color:var(--text-dark);
+      font-weight:700;
+    }
+
     .opening-button{
-      width:min(100%,420px);
+      width:min(100%,440px);
       min-height:60px;
       border-radius:999px;
       font-size:14px;
-      letter-spacing:.02em;
     }
 
     .opening-photo-wrap{
       position:relative;
-      min-height:470px;
+      min-height:430px;
       overflow:hidden;
-      border-radius:26px;
-      background:
-        linear-gradient(135deg, rgba(232,247,245,.95), rgba(255,255,255,.96));
-      box-shadow:0 16px 40px rgba(56,77,75,.10);
+      border-radius:24px;
+      background:linear-gradient(135deg,#eff9f7 0%,#f9fcfb 100%);
+      box-shadow:0 14px 34px rgba(56,77,75,.10);
     }
 
     .opening-photo{
       display:block;
       width:100%;
       height:100%;
-      min-height:470px;
+      min-height:430px;
       object-fit:cover;
       object-position:center;
     }
@@ -323,22 +325,17 @@
       gap:8px;
       color:var(--primary-deep);
       text-align:center;
-      letter-spacing:.12em;
     }
 
     .opening-photo-fallback span{
       font-size:13px;
       font-weight:800;
+      letter-spacing:.12em;
     }
 
     .opening-photo-fallback small{
       color:var(--text-light);
       font-size:10px;
-      letter-spacing:.03em;
-    }
-
-    .opening-photo-wrap.photo-missing .opening-photo-fallback{
-      display:grid;
     }
 
     @media (max-width:760px){
@@ -352,19 +349,15 @@
         gap:24px;
       }
 
-      .opening-copy{
-        padding:8px 0 0;
+      .opening-kicker{
+        font-size:17px;
+        margin-bottom:14px;
       }
 
-      .opening-title{
-        font-size:25px;
-        line-height:1.55;
-      }
-
-      .opening-message{
-        margin:18px 0 16px;
-        font-size:21px;
-        line-height:1.65;
+      .opening-maincopy{
+        font-size:27px;
+        line-height:1.5;
+        margin-bottom:18px;
       }
 
       .opening-text{
@@ -388,12 +381,12 @@
     }
 
     @media (max-width:420px){
-      .opening-title{
-        font-size:23px;
+      .opening-kicker{
+        font-size:16px;
       }
 
-      .opening-message{
-        font-size:19px;
+      .opening-maincopy{
+        font-size:24px;
       }
 
       .opening-photo-wrap,
@@ -1267,7 +1260,18 @@
       .page-title{
         font-size:31px;
       }
-.card-list{
+
+      .opening-title{
+        font-size:36px;
+      }
+
+      .opening-panel{
+        margin-left:-58px;
+        padding-left:78px;
+        padding-right:50px;
+      }
+
+      .card-list{
         grid-template-columns:repeat(2,1fr);
       }
 
@@ -1797,39 +1801,41 @@
               RECRUIT CONCIERGE
             </div>
 
-            <h1
-              id="opening-title"
-              class="opening-title"
-            ></h1>
+            <p class="opening-kicker">
+              仕事のこと。人のこと。働き方のこと。
+            </p>
 
-            <p
-              id="opening-message"
-              class="opening-message"
-            ></p>
+            <h1 class="opening-maincopy">
+              自分が大切にしたい医療を、<br>
+              仲間と目指せる場所で働く。
+            </h1>
 
-            <p
-              id="opening-text"
-              class="opening-text"
-            ></p>
+            <p class="opening-text">
+              仕事内容、患者さん、教育、キャリア、職場の雰囲気。<br>
+              <strong>働く場所を選ぶために知りたいことを、できるだけ具体的に紹介しています。</strong><br>
+              気になることから、自由にのぞいてみてください。
+            </p>
 
             <button
               id="opening-button"
               class="primary-button opening-button"
               onclick="showScreen('jobs')"
-            ></button>
+            >
+              私たちのことを、ぜひ知ってください　→
+            </button>
 
           </div>
 
-          <div class="opening-photo-wrap" aria-hidden="true">
+          <div class="opening-photo-wrap">
             <img
               class="opening-photo"
-              src="assets/top/top-hero.jpg"
-              alt=""
-              onerror="this.closest('.opening-photo-wrap').classList.add('photo-missing'); this.remove();"
+              src="top-hero.jpg"
+              alt="スタッフが院内で相談している様子"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
             >
-            <div class="opening-photo-fallback">
+            <div class="opening-photo-fallback" aria-hidden="true">
               <span>PHOTO</span>
-              <small>assets/top/top-hero.jpg</small>
+              <small>top-hero.jpg</small>
             </div>
           </div>
 
@@ -2346,10 +2352,9 @@
 
   /* 生成データが読めない場合も画面を壊さないため、現行文言を予備値として保持します。 */
   const uiText = Object.assign({
-    opening_title:'仕事のこと。人のこと。働き方のこと。',
-    opening_message:'自分が大切にしたい医療を、仲間と目指せる場所で働く。',
-    opening_text:'仕事内容、患者さん、教育、キャリア、職場の雰囲気。\n働く場所を選ぶために知りたいことを、できるだけ具体的に紹介しています。\n気になることから、自由にのぞいてみてください。',
-    opening_button:'私たちのことを、ぜひ知ってください　→',
+    opening_title:'あなたの「知りたい」から、\n職場を少しずつ知ってください。',
+    opening_text:'仕事内容、教育環境、働き方、職場の雰囲気。\n求職者の皆さまからよくいただく質問を、気になるテーマから自由に見ることができます。',
+    opening_button:'採用コンシェルジュをはじめる',
     job_back:'← 最初に戻る',
     job_title:'希望する職種を\n選んでください',
     job_lead:'現在検討している職種を選択してください。',
@@ -2383,19 +2388,6 @@
     related_panel_note:'より詳しい情報を、のぞみ整形外科の公式サイトで確認できます。',
     pitch_link_label:'採用ピッチ資料本編はこちら ↗'
   }, window.RECRUIT_UI_TEXT || {});
-
-  /*
-    TOP SCREEN COPY
-    2026-09-10 approved copy.
-    Kept in index.html so generated content-data.js does not overwrite
-    the renewed first-view message.
-  */
-  Object.assign(uiText,{
-    opening_title:"仕事のこと。人のこと。働き方のこと。",
-    opening_message:"自分が大切にしたい医療を、仲間と目指せる場所で働く。",
-    opening_text:"仕事内容、患者さん、教育、キャリア、職場の雰囲気。\n働く場所を選ぶために知りたいことを、できるだけ具体的に紹介しています。\n気になることから、自由にのぞいてみてください。",
-    opening_button:"私たちのことを、ぜひ知ってください　→"
-  });
 
 
   /*
@@ -2903,24 +2895,7 @@
   }
 
   function applyUIText(){
-
-    setMultilineText(document.getElementById("opening-title"),uiText.opening_title);
-
-    setMultilineText(
-      document.getElementById("opening-message"),
-      uiText.opening_message || "自分が大切にしたい医療を、仲間と目指せる場所で働く。"
-    );
-
-    setMultilineText(document.getElementById("opening-text"),uiText.opening_text);
-
-
-    document
-      .getElementById("opening-button")
-      .textContent =
-      uiText.opening_button;
-
-
-    document
+document
       .getElementById("job-back-button")
       .textContent =
       uiText.job_back;
