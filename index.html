@@ -2232,7 +2232,7 @@
               <p>一人ひとりの力だけではなく、多職種がそれぞれの専門性を生かして協力し、地域の皆さんに「ここがあってよかった」と思っていただけるクリニックを目指します。</p>
             </section>
             <section class="principle"><div class="principle-no">03</div>
-              <h2>私たちは<em>患者さんと私たちと社会の為に</em>楽しく真面目に働きます</h2>
+              <h2>私たちは<em>患者さんと私たちのために</em>真面目に楽しく働きます</h2>
               <div class="principle-summary">患者さん、ともに働く仲間、そして地域社会にとって、より良い仕事を目指します。</div>
               <p>私たちは、患者さんだけでなく、ともに働く仲間、そして地域社会にとってより良い仕事をすることを大切にしています。</p>
               <p>患者さんに良い医療を届けるためには、働くスタッフ自身が仕事にやりがいを感じ、安心して働き続けられることも大切です。そして医療機関として地域医療を支え、人々の健康を守り続けます。</p>
@@ -2471,6 +2471,163 @@
     </div>
 
   `;
+
+
+  function escapeHtml_(value){
+    return String(value == null ? "" : value)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function philosophyMasterRows_(pageName){
+    const rows = window.RECRUIT_CONTENT && Array.isArray(window.RECRUIT_CONTENT.philosophy)
+      ? window.RECRUIT_CONTENT.philosophy
+      : [];
+    return rows.filter(row => String(row.page || "").trim() === pageName);
+  }
+
+  function groupPhilosophyRows_(rows){
+    const groups = [];
+    const bySection = new Map();
+    rows.forEach(row => {
+      const key = String(row.section || "").trim() || "section";
+      if(!bySection.has(key)){
+        const group={section:key,rows:[]};
+        bySection.set(key,group);
+        groups.push(group);
+      }
+      bySection.get(key).rows.push(row);
+    });
+    groups.forEach(group => group.rows.sort((a,b)=>(Number(a.order)||0)-(Number(b.order)||0)));
+    return groups;
+  }
+
+  function philosophyParagraphs_(text){
+    return String(text || "")
+      .split(/\n\s*\n/)
+      .map(v=>v.trim())
+      .filter(Boolean)
+      .map(v=>`<p>${escapeHtml_(v).replace(/\n/g,"<br>")}</p>`)
+      .join("");
+  }
+
+  function philosophyImageHtml_(row){
+    if(!row || !row.image || !row.image.src) return "";
+    return `<img class="philosophy-visual" src="${escapeHtml_(row.image.src)}" alt="${escapeHtml_(row.image.alt || row.heading || "")}" loading="lazy">`;
+  }
+
+  function renderPhilosophyFromMaster(){
+    const target=document.getElementById("philosophy-content");
+    if(!target) return;
+
+    const rows=philosophyMasterRows_("線の医療");
+    if(!rows.length){
+      target.innerHTML=philosophyContent;
+      return;
+    }
+
+    const groups=groupPhilosophyRows_(rows);
+    const normalGroups=[];
+    let introHtml="";
+    let closingHtml="";
+
+    groups.forEach(group=>{
+      const label=group.section;
+      const lower=label.toLowerCase();
+      const isIntro=/導入|intro|リード|lead/.test(lower);
+      const isClosing=/まとめ|closing|締め|クロージング/.test(lower);
+      const first=group.rows[0] || {};
+
+      if(isIntro){
+        introHtml += group.rows.map(row=>philosophyParagraphs_(row.body)).join("");
+      }else if(isClosing){
+        const heading=first.heading ? `<strong>${escapeHtml_(first.heading)}</strong>` : "";
+        const bodies=group.rows.map(row=>philosophyParagraphs_(row.body)).join("");
+        closingHtml += `<div class="philosophy-closing">${heading}${bodies}</div>`;
+      }else{
+        normalGroups.push(group);
+      }
+    });
+
+    const nav = normalGroups.length
+      ? `<nav class="philosophy-nav" aria-label="このページの内容">${normalGroups.map((group,index)=>{
+          const first=group.rows.find(row=>String(row.heading||"").trim()) || group.rows[0] || {};
+          const title=String(first.heading || group.section || "").trim();
+          const no=String(index+1).padStart(2,"0");
+          return `<a href="#philosophy-master-${no}">${no}　${escapeHtml_(title)}<span>→</span></a>`;
+        }).join("")}</nav>`
+      : "";
+
+    const sectionsHtml=normalGroups.map((group,index)=>{
+      const rowsSorted=group.rows;
+      const firstWithHeading=rowsSorted.find(row=>String(row.heading||"").trim()) || rowsSorted[0] || {};
+      const no=String(index+1).padStart(2,"0");
+      let html=`<section id="philosophy-master-${no}" class="philosophy-section">`;
+      if(firstWithHeading.heading) html += `<h2>${escapeHtml_(firstWithHeading.heading)}</h2>`;
+      rowsSorted.forEach((row,rowIndex)=>{
+        if(rowIndex===0 && row.body){
+          html += `<div class="philosophy-message">${escapeHtml_(row.body).replace(/\n/g,"<br>")}</div>`;
+        }else if(row.body){
+          html += philosophyParagraphs_(row.body);
+        }
+        html += philosophyImageHtml_(row);
+      });
+      html += `</section>`;
+      return html;
+    }).join("");
+
+    target.innerHTML = `${introHtml ? `<div class="philosophy-lead">${introHtml}</div>` : ""}${nav}${sectionsHtml}${closingHtml}<button class="primary-button philosophy-return-button" type="button" onclick="returnToThemesFromPhilosophy()">テーマ選択画面に戻る</button><div id="philosophy-pitch-link-wrap" class="pitch-link-wrap"><a class="pitch-link js-pitch-link-label" href="https://www.nozomi-clinic.jp/recruit/archives/6782" target="_blank" rel="noopener noreferrer">採用ピッチ資料本編はこちら ↗</a></div>`;
+  }
+
+  function principleHeadingHtml_(heading,section){
+    let text=escapeHtml_(heading || "");
+    const sectionText=String(section || "");
+    const candidates = /01/.test(sectionText)
+      ? ["あるべき姿"]
+      : /02/.test(sectionText)
+        ? ["身近で親しみある安心できる"]
+        : /03/.test(sectionText)
+          ? ["患者さんと私たちのために","患者さんと私たちと社会の為に"]
+          : [];
+    candidates.some(word=>{
+      const escaped=escapeHtml_(word);
+      if(text.includes(escaped)){
+        text=text.replace(escaped,`<em>${escaped}</em>`);
+        return true;
+      }
+      return false;
+    });
+    return text;
+  }
+
+  function renderPrinciplesFromMaster(){
+    const body=document.querySelector("#principles .principles-body");
+    if(!body) return;
+
+    const rows=philosophyMasterRows_("3つの理念");
+    if(!rows.length) return; // 既存HTMLをフォールバックとして保持
+
+    const groups=groupPhilosophyRows_(rows).filter(group=>/理念\s*0?[123]|principle[_ -]?0?[123]/i.test(group.section));
+    if(!groups.length) return;
+
+    const principlesHtml=groups.map((group,index)=>{
+      const first=group.rows[0] || {};
+      const headingRow=group.rows.find(row=>String(row.heading||"").trim()) || first;
+      const heading=String(headingRow.heading || "").trim();
+      const summary=String(headingRow.body || "").trim();
+      const bodyRows=group.rows.filter(row=>row!==headingRow && String(row.body||"").trim());
+      const noMatch=String(group.section).match(/([123])/);
+      const no=String(noMatch ? Number(noMatch[1]) : index+1).padStart(2,"0");
+      return `<section class="principle"><div class="principle-no">${no}</div><h2>${principleHeadingHtml_(heading,group.section)}</h2>${summary ? `<div class="principle-summary">${escapeHtml_(summary).replace(/\n/g,"<br>")}</div>` : ""}${bodyRows.map(row=>`${philosophyParagraphs_(row.body)}${philosophyImageHtml_(row)}`).join("")}${philosophyImageHtml_(headingRow)}</section>`;
+    }).join("");
+
+    const existingClosing=body.querySelector(".principles-closing");
+    const closingHtml=existingClosing ? existingClosing.outerHTML : "";
+    body.innerHTML=principlesHtml+closingHtml;
+  }
 
 
   /*
@@ -2976,10 +3133,8 @@ document
       uiText.philosophy_intro;
 
 
-    document
-      .getElementById("philosophy-content")
-      .innerHTML =
-      philosophyContent;
+    renderPhilosophyFromMaster();
+    renderPrinciplesFromMaster();
 
 
     document
