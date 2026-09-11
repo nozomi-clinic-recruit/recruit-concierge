@@ -1,5 +1,5 @@
 window.RECRUIT_CONTENT = {
-  "version": "2026-09-10-master",
+  "version": "2026-09-11-master",
   "jobs": [
     {
       "name": "理学療法士",
